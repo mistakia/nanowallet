@@ -1,7 +1,8 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import { withRouter } from 'react-router'
-import { ConnectedRouter } from 'connected-react-router'
+import { ConnectedRouter } from 'connected-react-router/immutable'
+import { Provider as PaperProvider } from 'react-native-paper'
 
 import createStore from '@core/store'
 import history from '@core/history'
@@ -15,7 +16,9 @@ const ConnectedApp = withRouter(App)
 const Root = () => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <ConnectedApp />
+      <PaperProvider>
+        <ConnectedApp />
+      </PaperProvider>
     </ConnectedRouter>
   </Provider>
 )

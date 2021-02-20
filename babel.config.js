@@ -7,10 +7,14 @@ module.exports = {
       require('babel-plugin-module-resolver'), {
         'root': ['./'],
         'alias': {
-          '@core': './app/core',
-          '@components': './app/views/components'
+          '@core': './src/core',
+          '@components': './src/views/components',
+          '@views': './src/views',
+          '@pages': './src/pages'
         }
       }
-    ]
+    ],
+
+    'react-native-paper/babel'
   ]
 }
