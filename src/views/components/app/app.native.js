@@ -2,13 +2,11 @@ import React from 'react'
 import Routes from '@views/routes'
 
 export default class App extends React.Component {
-  componentDidMount () {
+  componentDidMount() {
     this.props.load()
   }
 
-  render () {
-    const { wallet } = this.props
-
+  render() {
     return (
       <>
         <Routes />

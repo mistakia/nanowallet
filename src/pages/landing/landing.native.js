@@ -9,13 +9,21 @@ export default function () {
   return (
     <>
       <View style={styles.container}>
-        <View style={styles.lead}>
-        </View>
+        <View style={styles.lead} />
         <View style={styles.actions}>
-          <Link to='/create' component={Button} style={styles.action} mode='contained'>
+          <Link
+            to='/create'
+            component={Button}
+            style={styles.action}
+            mode='contained'>
             Create
           </Link>
-          <Link to='/import' component={Button} style={styles.action} mode='text' onPress={() => console.log('Pressed')}>
+          <Link
+            to='/import'
+            component={Button}
+            style={styles.action}
+            mode='text'
+            onPress={() => console.log('Pressed')}>
             Import
           </Link>
         </View>

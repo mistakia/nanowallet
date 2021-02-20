@@ -9,22 +9,18 @@ import rootReducer from './reducers'
 const sagaMiddleware = createSagaMiddleware()
 
 export default (initialState = {}, history) => {
-  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+  const composeEnhancers =
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
   // ======================================================
   // Middleware Configuration
   // ======================================================
-  const middlewares = [
-    sagaMiddleware,
-    routerMiddleware(history)
-  ]
+  const middlewares = [sagaMiddleware, routerMiddleware(history)]
 
   // ======================================================
   // Store Enhancers
   // ======================================================
-  const enhancers = [
-    applyMiddleware(...middlewares)
-  ]
+  const enhancers = [applyMiddleware(...middlewares)]
 
   // ======================================================
   // Store Instantiation and HMR Setup

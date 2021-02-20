@@ -5,7 +5,7 @@ const initialState = new Record({
   accounts: new List()
 })
 
-export function walletReducer (state = initialState(), { payload, type }) {
+export function walletReducer(state = initialState(), { payload, type }) {
   switch (type) {
     default:
       return state

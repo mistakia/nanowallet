@@ -5,16 +5,8 @@ import { walletActions, getWallet } from '@core/wallet'
 
 import App from './app'
 
-const mapStateToProps = createSelector(
-  getWallet,
-  (wallet) => ({ wallet })
-)
+const mapStateToProps = createSelector(getWallet, (wallet) => ({ wallet }))
 
-const mapDispatchToProps = {
-  load: walletActions.load
-}
+const mapDispatchToProps = { load: walletActions.load }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)

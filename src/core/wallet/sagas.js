@@ -4,7 +4,7 @@ import { push } from 'connected-react-router'
 import { walletActions } from './actions'
 import { localStorage } from '@core/utils'
 
-export function * load () {
+export function* load() {
   const seed = yield call(localStorage.getItem, 'seed')
   if (!seed) {
     return yield put(push('/landing'))
@@ -17,7 +17,7 @@ export function * load () {
 //  WATCHERS
 // -------------------------------------
 
-export function * watchLoadWallet () {
+export function* watchLoadWallet() {
   yield takeLeading(walletActions.LOAD_WALLET, load)
 }
 
@@ -25,6 +25,4 @@ export function * watchLoadWallet () {
 //  ROOT
 // -------------------------------------
 
-export const walletSagas = [
-  fork(watchLoadWallet)
-]
+export const walletSagas = [fork(watchLoadWallet)]
