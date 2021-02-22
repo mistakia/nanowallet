@@ -1,5 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
+if (__DEV__) {
+  global.clear = () => {
+    AsyncStorage.clear().then(() => console.log('Cleared'))
+  }
+}
+
 export const localStorage = {
   async getItem(key) {
     const item = await AsyncStorage.getItem(key)

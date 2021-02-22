@@ -1,35 +1,72 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import { Button } from 'react-native-paper'
-import { Link } from 'react-router-native'
+import Modal from 'react-native-modal'
 
+import Import from '@pages/import'
+import Create from '@pages/create'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
 
-export default function () {
-  return (
-    <>
+export default class LandingPage extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      importVisible: false,
+      createVisible: false
+    }
+  }
+
+  toggleImport = () => {
+    this.setState({ importVisible: !this.state.importVisible })
+  }
+
+  toggleCreate = () => {
+    this.setState({ createVisible: !this.state.createVisible })
+  }
+
+  cancelCreate = () => {
+    this.props.clear()
+    this.setState({ createVisible: false })
+  }
+
+  render() {
+    return (
       <View style={styles.container}>
         <View style={styles.lead} />
         <View style={styles.actions}>
-          <Link
-            to='/create'
-            component={Button}
+          <Button
             style={styles.action}
+            onPress={this.toggleCreate}
             mode='contained'>
             Create
-          </Link>
-          <Link
-            to='/import'
-            component={Button}
+          </Button>
+          <Button
             style={styles.action}
             mode='text'
-            onPress={() => console.log('Pressed')}>
+            onPress={this.toggleImport}>
             Import
-          </Link>
+          </Button>
         </View>
+
+        <Modal
+          isVisible={this.state.importVisible}
+          backdropColor='white'
+          swipeDirection='down'
+        >
+          <Import />
+        </Modal>
+        <Modal
+          isVisible={this.state.createVisible}
+          backdropColor='white'
+          swipeDirection={'down'}
+          onSwipeComplete={this.cancelCreate}
+        >
+          <Create handleCancel={this.cancelCreate} />
+        </Modal>
       </View>
-    </>
-  )
+    )
+  }
 }
 
 const styles = StyleSheet.create({
