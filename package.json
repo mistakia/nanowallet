@@ -22,6 +22,7 @@
     "react-native-modal": "^11.7.0",
     "react-native-paper": "^4.7.1",
     "react-native-randombytes": "^3.6.0",
+    "react-native-snackbar": "^2.3.2",
     "react-native-vector-icons": "^8.0.0",
     "react-redux": "^7.2.2",
     "react-router": "^5.2.0",

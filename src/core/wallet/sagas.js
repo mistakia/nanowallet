@@ -2,6 +2,7 @@ import { takeLeading, fork, call, put, takeLatest, select } from 'redux-saga/eff
 import { push } from 'connected-react-router'
 import ClipboardPlus from 'react-native-clipboard-plus'
 import { wallet } from 'nanocurrency-web'
+import Snackbar from 'react-native-snackbar'
 
 import { walletActions } from './actions'
 import { getWallet } from './selectors'
@@ -26,7 +27,10 @@ export function* create() {
 export function* copy() {
   const w = yield select(getWallet)
   const copyResult = yield call(ClipboardPlus.copyText, w.seed)
-  // TODO notification
+  Snackbar.show({
+    text: 'Copied',
+    duration: Snackbar.LENGTH_SHORT,
+  })
 }
 
 export function* clear() {
