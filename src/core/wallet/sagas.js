@@ -22,6 +22,7 @@ export function* load() {
   }
   const w = wallet.fromMnemonic(mnemonic)
   yield put(walletActions.set(w))
+  yield put(walletActions.confirm())
 }
 
 export function* create() {
@@ -44,6 +45,10 @@ export function* clear() {
   localStorageAdapter.removeItem('mnemonic')
 }
 
+export function* confirm() {
+  return yield put(push('/dashboard'))
+}
+
 //= ====================================
 //  WATCHERS
 // -------------------------------------
@@ -64,6 +69,10 @@ export function* watchClearWallet() {
   yield takeLatest(walletActions.CLEAR_WALLET, clear)
 }
 
+export function* watchConfirmWallet() {
+  yield takeLatest(walletActions.CONFIRM_WALLET, confirm)
+}
+
 //= ====================================
 //  ROOT
 // -------------------------------------
@@ -72,5 +81,6 @@ export const walletSagas = [
   fork(watchLoadWallet),
   fork(watchCopySeed),
   fork(watchCreateWallet),
-  fork(watchClearWallet)
+  fork(watchClearWallet),
+  fork(watchConfirmWallet)
 ]

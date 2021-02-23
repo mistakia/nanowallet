@@ -7,6 +7,9 @@ import App from './app'
 
 const mapStateToProps = createSelector(getWallet, (wallet) => ({ wallet }))
 
-const mapDispatchToProps = { load: walletActions.load }
+const mapDispatchToProps = (dispatch) => ({
+  load: () => dispatch(walletActions.load()),
+  dispatch
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

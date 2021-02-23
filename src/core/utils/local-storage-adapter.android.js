@@ -1,1 +1,1 @@
-export { localStorage } from './local-storage-adapter.native'
+export { localStorageAdapter } from './local-storage-adapter.native'

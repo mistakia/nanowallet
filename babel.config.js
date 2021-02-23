@@ -11,7 +11,7 @@ module.exports = {
           '@core': './src/core',
           '@components': './src/views/components',
           '@views': './src/views',
-          '@pages': './src/pages'
+          '@pages': './src/views/pages'
         }
       }
     ],

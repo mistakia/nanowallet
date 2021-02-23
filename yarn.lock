@@ -5629,6 +5629,13 @@ react-native-logs@^3.0.3:
   resolved "https://registry.yarnpkg.com/react-native-logs/-/react-native-logs-3.0.3.tgz#10bc6a24010dad2bcf9b3b7eacc27f6a3796ed01"
   integrity sha512-Fnkoe9f1taxY8MiONGdPVaQPDml01i7oSYY+pxk/2fthJv24Z/Tlw22p8dgkuJ3SiwBHc71WlzQ4asKR5FPKbw==
 
+react-native-material-bottom-navigation@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/react-native-material-bottom-navigation/-/react-native-material-bottom-navigation-1.0.5.tgz#4552cc8529ba722f044a4a66d7d4deb73d931c82"
+  integrity sha512-SpbFHH/2cJELZ9z4THE7xMCM8uBBvjqfN3+BB30IfM0144gxHFSVdzFoTj7I2U7jV/cWQbeJ8vRN99ACTlSpwA==
+  dependencies:
+    prop-types "^15.6.1"
+
 react-native-modal@^11.7.0:
   version "11.7.0"
   resolved "https://registry.yarnpkg.com/react-native-modal/-/react-native-modal-11.7.0.tgz#6637d757eeac6eda85f7017a9dfdee0c0fe3a34c"

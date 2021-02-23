@@ -19,6 +19,7 @@
     "react-native": "0.63.4",
     "react-native-clipboard-plus": "^1.0.6",
     "react-native-logs": "^3.0.3",
+    "react-native-material-bottom-navigation": "^1.0.5",
     "react-native-modal": "^11.7.0",
     "react-native-paper": "^4.7.1",
     "react-native-randombytes": "^3.6.0",
