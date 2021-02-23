@@ -7,6 +7,27 @@ import { walletActions, getWallet } from '@core/wallet'
 import render from './create'
 
 class CreatePage extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = { confirmVisible: false }
+  }
+
+  componentDidUpdate() {
+    if (this.state.confirmVisible && this.props.wallet.confirmed) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({ confirmVisible: false })
+    }
+  }
+
+  toggleConfirm = () => {
+    this.setState({ confirmVisible: !this.state.confirmVisible })
+  }
+
+  cancelConfirm = () => {
+    this.setState({ confirmVisible: false })
+  }
+
   componentDidMount() {
     this.props.create()
   }

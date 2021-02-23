@@ -6,7 +6,7 @@ if (__DEV__) {
   }
 }
 
-export const localStorage = {
+export const localStorageAdapter = {
   async getItem(key) {
     const item = await AsyncStorage.getItem(key)
     return item != null ? JSON.parse(item) : null

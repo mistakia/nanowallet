@@ -1,4 +1,11 @@
-import { takeLeading, fork, call, put, takeLatest, select } from 'redux-saga/effects'
+import {
+  takeLeading,
+  fork,
+  call,
+  put,
+  takeLatest,
+  select
+} from 'redux-saga/effects'
 import { push } from 'connected-react-router'
 import ClipboardPlus from 'react-native-clipboard-plus'
 import { wallet } from 'nanocurrency-web'
@@ -6,10 +13,10 @@ import Snackbar from 'react-native-snackbar'
 
 import { walletActions } from './actions'
 import { getWallet } from './selectors'
-import { localStorage, randomBytes } from '@core/utils'
+import { localStorageAdapter, randomBytes } from '@core/utils'
 
 export function* load() {
-  const mnemonic = yield call(localStorage.getItem, 'mnemonic')
+  const mnemonic = yield call(localStorageAdapter.getItem, 'mnemonic')
   if (!mnemonic) {
     return yield put(push('/landing'))
   }
@@ -21,20 +28,20 @@ export function* create() {
   const entropy = randomBytes.generate()
   const w = wallet.generate(entropy)
   yield put(walletActions.set(w))
-  localStorage.setItem('mnemonic', w.mnemonic)
+  localStorageAdapter.setItem('mnemonic', w.mnemonic)
 }
 
 export function* copy() {
   const w = yield select(getWallet)
-  const copyResult = yield call(ClipboardPlus.copyText, w.seed)
+  yield call(ClipboardPlus.copyText, w.seed)
   Snackbar.show({
     text: 'Copied',
-    duration: Snackbar.LENGTH_SHORT,
+    duration: Snackbar.LENGTH_SHORT
   })
 }
 
 export function* clear() {
-  localStorage.removeItem('mnemonic')
+  localStorageAdapter.removeItem('mnemonic')
 }
 
 //= ====================================

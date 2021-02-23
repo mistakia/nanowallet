@@ -17,6 +17,13 @@ export default class LandingPage extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.state.createVisible && this.props.wallet.confirmed) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({ createVisible: false })
+    }
+  }
+
   toggleImport = () => {
     this.setState({ importVisible: !this.state.importVisible })
   }
@@ -41,10 +48,7 @@ export default class LandingPage extends React.Component {
             mode='contained'>
             Create
           </Button>
-          <Button
-            style={styles.action}
-            mode='text'
-            onPress={this.toggleImport}>
+          <Button style={styles.action} mode='text' onPress={this.toggleImport}>
             Import
           </Button>
         </View>
@@ -52,16 +56,14 @@ export default class LandingPage extends React.Component {
         <Modal
           isVisible={this.state.importVisible}
           backdropColor='white'
-          swipeDirection='down'
-        >
+          swipeDirection='down'>
           <Import />
         </Modal>
         <Modal
           isVisible={this.state.createVisible}
           backdropColor='white'
-          swipeDirection={'down'}
-          onSwipeComplete={this.cancelCreate}
-        >
+          swipeDirection='down'
+          onSwipeComplete={this.cancelCreate}>
           <Create handleCancel={this.cancelCreate} />
         </Modal>
       </View>

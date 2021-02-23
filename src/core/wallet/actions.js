@@ -3,6 +3,7 @@ export const walletActions = {
   CREATE_WALLET: 'CREATE_WALLET',
   SET_WALLET: 'SET_WALLET',
   CLEAR_WALLET: 'CLEAR_WALLET',
+  CONFIRM_WALLET: 'CONFIRM_WALLET',
 
   COPY_SEED: 'COPY_SEED',
 
@@ -25,5 +26,9 @@ export const walletActions = {
 
   clear: () => ({
     type: walletActions.CLEAR_WALLET
+  }),
+
+  confirm: () => ({
+    type: walletActions.CONFIRM_WALLET
   })
 }
