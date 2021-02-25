@@ -5,11 +5,13 @@ import BottomNavigation, {
   FullTab
 } from 'react-native-material-bottom-navigation'
 import { push } from 'connected-react-router'
+import Modal from 'react-native-modal'
 
 import Routes from '@views/routes'
 // eslint-disable-next-line no-unused-vars
 import Snackbar from 'react-native-snackbar'
 import constants from '@core/constants'
+import Settings from '@pages/settings'
 
 export default class App extends React.Component {
   tabs = [
@@ -40,7 +42,16 @@ export default class App extends React.Component {
   ]
 
   state = {
-    activeTab: 'dashboard'
+    activeTab: 'dashboard',
+    settingsVisible: false
+  }
+
+  toggleSettings = () => {
+    this.setState({ settingsVisible: !this.state.settingsVisible })
+  }
+
+  closeSettings = () => {
+    this.setState({ settingsVisible: false })
   }
 
   onTabPress = (newTab) => {
@@ -59,6 +70,7 @@ export default class App extends React.Component {
       isActive={isActive}
       key={tab.key}
       label={tab.label}
+      style={{ paddingTop: 0 }}
       renderIcon={this.renderIcon(tab)}
     />
   )
@@ -78,6 +90,7 @@ export default class App extends React.Component {
               size={36}
               color={this.state.text}
               icon='account-circle-outline'
+              onPress={this.toggleSettings}
             />
           </View>
         )}
@@ -93,6 +106,15 @@ export default class App extends React.Component {
             tabs={this.tabs}
           />
         )}
+        <Modal
+          isVisible={this.state.settingsVisible}
+          backdropColor='white'
+          swipeDirection='down'
+          style={{ padding: 0, margin: 0 }}
+          backdropOpacity={1}
+          onSwipeComplete={this.closeSettings}>
+          <Settings handleClose={this.closeSettings} />
+        </Modal>
       </>
     )
   }
@@ -106,6 +128,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   menu: {
-    shadowColor: 'transparent'
+    shadowColor: 'transparent',
+    height: 80
   }
 })
