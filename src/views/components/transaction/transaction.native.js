@@ -9,7 +9,9 @@ export default function ({ transaction }) {
   const timestamp = moment(transaction.local_timestamp, 'X')
   const isSend = transaction.type === 'send'
   const amount = new BigNumber(transaction.amount_decimal)
-  const amountFormatted = amount.isLessThan(1) ? amount.toFixed(6) : amount.toFormat(2)
+  const amountFormatted = amount.isLessThan(1)
+    ? amount.toFixed(6)
+    : amount.toFormat(2)
   const amountStyle = isSend ? styles.sendAmount : styles.receiveAmount
 
   return (
@@ -17,10 +19,14 @@ export default function ({ transaction }) {
       <View style={styles.line} />
       <View style={styles.body}>
         <View style={styles.header}>
-          {isSend
-            ? <Text style={{ ...styles.type, ...styles.send }}>S</Text>
-            : <Text style={{ ...styles.type, ...styles.receive }}>R</Text>}
-          <Text style={styles.timestamp}>{timestamp.format('MMM D YY [at] HH:mm')}</Text>
+          {isSend ? (
+            <Text style={{ ...styles.type, ...styles.send }}>S</Text>
+          ) : (
+            <Text style={{ ...styles.type, ...styles.receive }}>R</Text>
+          )}
+          <Text style={styles.timestamp}>
+            {timestamp.format('MMM D YY [at] HH:mm')}
+          </Text>
           <Text style={{ ...styles.amount, ...amountStyle }}>
             <Text>{isSend ? '-' : '+'}</Text>
             <Text>{amountFormatted}</Text>

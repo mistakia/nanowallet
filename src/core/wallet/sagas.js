@@ -23,6 +23,12 @@ export function* load() {
   const w = wallet.fromMnemonic(mnemonic)
   yield put(walletActions.set(w))
   yield put(walletActions.confirm())
+
+  const accountIndex = yield call(localStorageAdapter.getItem, 'accountIndex')
+  if (accountIndex) {
+    const accounts = wallet.accounts(w.seed, 1, accountIndex)
+    yield put(walletActions.setAccounts(accounts))
+  }
 }
 
 export function* create() {
@@ -49,6 +55,14 @@ export function* confirm() {
   return yield put(push('/dashboard'))
 }
 
+export function* add() {
+  const w = yield select(getWallet)
+  const idx = w.accounts.size
+  const accounts = wallet.accounts(w.seed, idx - 1, idx)
+  localStorageAdapter.setItem('accountIndex', idx)
+  yield put(walletActions.setAccounts(accounts))
+}
+
 //= ====================================
 //  WATCHERS
 // -------------------------------------
@@ -73,6 +87,10 @@ export function* watchConfirmWallet() {
   yield takeLatest(walletActions.CONFIRM_WALLET, confirm)
 }
 
+export function* watchAddAccount() {
+  yield takeLatest(walletActions.ADD_ACCOUNT, add)
+}
+
 //= ====================================
 //  ROOT
 // -------------------------------------
@@ -82,5 +100,6 @@ export const walletSagas = [
   fork(watchCopySeed),
   fork(watchCreateWallet),
   fork(watchClearWallet),
-  fork(watchConfirmWallet)
+  fork(watchConfirmWallet),
+  fork(watchAddAccount)
 ]

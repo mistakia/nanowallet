@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { Button, IconButton, TouchableRipple } from 'react-native-paper'
+import { Button, TouchableRipple } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import constants from '@core/constants'
@@ -61,15 +61,13 @@ export default function () {
         <TouchableRipple
           onPress={() => console.log('Pressed')}
           rippleColor='rgba(0, 0, 0, .32)'
-          style={styles.action}
-        >
+          style={styles.action}>
           <Text style={styles.actionText}>Receive</Text>
         </TouchableRipple>
         <TouchableRipple
           onPress={() => console.log('Pressed')}
           rippleColor='rgba(0, 0, 0, .32)'
-          style={styles.action}
-        >
+          style={styles.action}>
           <Text style={styles.actionText}>Send</Text>
         </TouchableRipple>
       </View>

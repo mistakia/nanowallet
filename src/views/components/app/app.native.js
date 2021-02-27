@@ -1,6 +1,6 @@
 import React from 'react'
 import { IconButton } from 'react-native-paper'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Text } from 'react-native'
 import BottomNavigation, {
   FullTab
 } from 'react-native-material-bottom-navigation'
@@ -11,7 +11,7 @@ import Routes from '@views/routes'
 // eslint-disable-next-line no-unused-vars
 import Snackbar from 'react-native-snackbar'
 import constants from '@core/constants'
-import Settings from '@pages/settings'
+import Accounts from '@pages/accounts'
 
 export default class App extends React.Component {
   tabs = [
@@ -38,20 +38,28 @@ export default class App extends React.Component {
       barColor: 'white',
       text: 'black',
       pressColor: 'rgba(255, 255, 255, 0.16)'
+    },
+    {
+      key: 'settings',
+      icon: 'cog',
+      label: 'Settings',
+      barColor: 'white',
+      text: 'black',
+      pressColor: 'rgba(255, 255, 255, 0.16)'
     }
   ]
 
   state = {
     activeTab: 'dashboard',
-    settingsVisible: false
+    accountsVisible: false
   }
 
-  toggleSettings = () => {
-    this.setState({ settingsVisible: !this.state.settingsVisible })
+  toggleAccounts = () => {
+    this.setState({ accountsVisible: !this.state.accountsVisible })
   }
 
-  closeSettings = () => {
-    this.setState({ settingsVisible: false })
+  closeAccounts = () => {
+    this.setState({ accountsVisible: false })
   }
 
   onTabPress = (newTab) => {
@@ -86,11 +94,19 @@ export default class App extends React.Component {
         {walletReady && (
           <View
             style={{ backgroundColor: this.state.barColor, ...styles.head }}>
+            <View style={styles.balanceContainer}>
+              <Text style={{ color: this.state.text, ...styles.balanceNano }}>
+                420.69 N
+              </Text>
+              <Text style={{ color: this.state.text, ...styles.balanceUsd }}>
+                $2,137.10
+              </Text>
+            </View>
             <IconButton
               size={36}
               color={this.state.text}
               icon='account-circle-outline'
-              onPress={this.toggleSettings}
+              onPress={this.toggleAccounts}
             />
           </View>
         )}
@@ -107,13 +123,12 @@ export default class App extends React.Component {
           />
         )}
         <Modal
-          isVisible={this.state.settingsVisible}
+          isVisible={this.state.accountsVisible}
           backdropColor='white'
-          swipeDirection='down'
           style={{ padding: 0, margin: 0 }}
           backdropOpacity={1}
-          onSwipeComplete={this.closeSettings}>
-          <Settings handleClose={this.closeSettings} />
+          propagateSwipe>
+          <Accounts handleClose={this.closeAccounts} />
         </Modal>
       </>
     )
@@ -122,7 +137,18 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   head: {
-    paddingTop: 35
+    paddingTop: 35,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center'
+  },
+  balanceNano: {
+    fontSize: 18,
+    fontWeight: '700'
+  },
+  balanceUsd: {
+    fontSize: 13,
+    fontWeight: '400'
   },
   body: {
     flex: 1

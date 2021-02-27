@@ -7,6 +7,7 @@ import DashboardPage from '@pages/dashboard'
 import LandingPage from '@pages/landing'
 import ActivityPage from '@pages/activity'
 import TransactionPage from '@pages/transaction'
+import SettingsPage from '@pages/settings'
 
 const Routes = () => (
   <Switch>
@@ -16,6 +17,7 @@ const Routes = () => (
     <Route path='/landing' component={LandingPage} />
     <Route path='/activity' component={ActivityPage} />
     <Route path='/transaction' component={TransactionPage} />
+    <Route path='/settings' component={SettingsPage} />
   </Switch>
 )
 

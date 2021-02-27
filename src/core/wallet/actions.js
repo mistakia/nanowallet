@@ -7,6 +7,9 @@ export const walletActions = {
 
   COPY_SEED: 'COPY_SEED',
 
+  ADD_ACCOUNT: 'ADD_ACCOUNT',
+  SET_ACCOUNTS: 'SET_ACCOUNTS',
+
   load: () => ({
     type: walletActions.LOAD_WALLET
   }),
@@ -30,5 +33,14 @@ export const walletActions = {
 
   confirm: () => ({
     type: walletActions.CONFIRM_WALLET
+  }),
+
+  addAccount: () => ({
+    type: walletActions.ADD_ACCOUNT
+  }),
+
+  setAccounts: (accounts) => ({
+    type: walletActions.SET_ACCOUNTS,
+    payload: accounts
   })
 }
