@@ -1,6 +1,6 @@
 import React from 'react'
 import { ScrollView, View, StyleSheet } from 'react-native'
-import { List } from 'react-native-paper'
+import { List, Button } from 'react-native-paper'
 
 export default function () {
   return (
@@ -11,6 +11,12 @@ export default function () {
           title='Security'
           description='Item description'
           left={(props) => <List.Icon {...props} icon='shield-check' />}
+          right={(props) => <List.Icon {...props} icon='chevron-right' />}
+        />
+        <List.Item
+          title='Privacy'
+          description='Item description'
+          left={(props) => <List.Icon {...props} icon='shield-account' />}
           right={(props) => <List.Icon {...props} icon='chevron-right' />}
         />
         <List.Item
@@ -31,6 +37,11 @@ export default function () {
           left={(props) => <List.Icon {...props} icon='help-circle' />}
           right={(props) => <List.Icon {...props} icon='chevron-right' />}
         />
+        <View style={styles.exitContainer}>
+          <Button mode='contained' icon='alert'>
+            Exit Wallet
+          </Button>
+        </View>
       </View>
     </ScrollView>
   )
@@ -46,5 +57,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: 90
+  },
+  exitContainer: {
+    marginTop: 60,
+    padding: 8
   }
 })

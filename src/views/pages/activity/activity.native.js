@@ -1,10 +1,5 @@
 import React from 'react'
-import {
-  SafeAreaView,
-  FlatList,
-  StyleSheet,
-  StatusBar
-} from 'react-native'
+import { SafeAreaView, FlatList, StyleSheet, StatusBar } from 'react-native'
 
 import Transaction from '@components/transaction'
 

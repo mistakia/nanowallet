@@ -4,8 +4,6 @@ import moment from 'moment'
 import { BigNumber } from 'bignumber.js'
 
 export default function ({ transaction }) {
-  console.log(transaction)
-
   const timestamp = moment(transaction.local_timestamp, 'X')
   const isSend = transaction.type === 'send'
   const amount = new BigNumber(transaction.amount_decimal)
