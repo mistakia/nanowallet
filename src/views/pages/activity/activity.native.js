@@ -1,5 +1,5 @@
 import React from 'react'
-import { SafeAreaView, FlatList, StyleSheet, StatusBar } from 'react-native'
+import { SafeAreaView, FlatList, StyleSheet, StatusBar, View } from 'react-native'
 
 import Transaction from '@components/transaction'
 
@@ -303,17 +303,23 @@ export default function () {
   const renderItem = ({ item }) => <Transaction transaction={item} />
 
   return (
-    <SafeAreaView style={styles.container}>
-      <FlatList
-        data={account.history}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.hash}
-      />
-    </SafeAreaView>
+    <>
+      <View style={styles.head} />
+      <SafeAreaView style={styles.container}>
+        <FlatList
+          data={account.history}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.hash}
+        />
+      </SafeAreaView>
+    </>
   )
 }
 
 const styles = StyleSheet.create({
+  head: {
+    height: 100
+  },
   container: {
     flex: 1,
     marginTop: StatusBar.currentHeight || 0

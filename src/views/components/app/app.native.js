@@ -137,10 +137,13 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   head: {
+    position: 'absolute',
     paddingTop: 35,
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    alignItems: 'center'
+    alignItems: 'center',
+    right: 0,
+    zIndex: 1
   },
   balanceNano: {
     fontSize: 18,

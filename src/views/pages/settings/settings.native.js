@@ -4,50 +4,56 @@ import { List, Button } from 'react-native-paper'
 
 export default function () {
   return (
-    <ScrollView>
-      <View style={styles.header} />
-      <View>
-        <List.Item
-          style={styles.row}
-          title='Security'
-          description='Biometrics, Auto-Lock, Wallet Password'
-          right={(props) => <List.Icon {...props} icon='chevron-right' />}
-        />
-        <List.Item
-          style={styles.row}
-          title='Privacy'
-          description='Cold Storage, Hot Wallet'
-          right={(props) => <List.Icon {...props} icon='chevron-right' />}
-        />
-        <List.Item
-          style={styles.row}
-          title='Backup Wallet'
-          description='Copy Seed, Secret Phrase'
-          right={(props) => <List.Icon {...props} icon='chevron-right' />}
-        />
-        <List.Item
-          style={styles.row}
-          title='Node Configuration'
-          description='API Endpoints, PoW Source'
-          right={(props) => <List.Icon {...props} icon='chevron-right' />}
-        />
-        <List.Item
-          style={styles.row}
-          title='Support'
-          description='Help, FAQs, Forum'
-          right={(props) => <List.Icon {...props} icon='chevron-right' />}
-        />
-        <View style={styles.exitContainer}>
-          <Button mode='text' icon='alert'>
-            Exit Wallet
-          </Button>
+    <>
+      <View style={styles.head} />
+      <ScrollView>
+        <View style={styles.header} />
+        <View>
+          <List.Item
+            style={styles.row}
+            title='Security'
+            description='Biometrics, Auto-Lock, Wallet Password'
+            right={(props) => <List.Icon {...props} icon='chevron-right' />}
+          />
+          <List.Item
+            style={styles.row}
+            title='Privacy'
+            description='Cold Storage, Hot Wallet'
+            right={(props) => <List.Icon {...props} icon='chevron-right' />}
+          />
+          <List.Item
+            style={styles.row}
+            title='Backup Wallet'
+            description='Copy Seed, Secret Phrase'
+            right={(props) => <List.Icon {...props} icon='chevron-right' />}
+          />
+          <List.Item
+            style={styles.row}
+            title='Node Configuration'
+            description='API Endpoints, PoW Source'
+            right={(props) => <List.Icon {...props} icon='chevron-right' />}
+          />
+          <List.Item
+            style={styles.row}
+            title='Support'
+            description='Help, FAQs, Forum'
+            right={(props) => <List.Icon {...props} icon='chevron-right' />}
+          />
+          <View style={styles.exitContainer}>
+            <Button mode='text' icon='alert'>
+              Exit Wallet
+            </Button>
+          </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </>
   )
 }
 
 const styles = StyleSheet.create({
+  head: {
+    height: 100
+  },
   close: {
     position: 'absolute',
     top: 30,

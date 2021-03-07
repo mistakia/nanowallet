@@ -151,153 +151,159 @@ function onlineStake(stats) {
 export default function () {
   const { stats } = this.props
   return (
-    <Grid scrollable stretchable>
-      <Section>
-        <Block>
-          <Grid stretchable>
-            <Section>
-              <Block>
-                <Text style={styles.header}>Representative</Text>
-              </Block>
-            </Section>
-            <Section>
-              <Block xsSize='50%'>
-                <View style={styles.cell}>
-                  <Text style={styles.key}>Status</Text>
-                  <Text style={styles.value}>
-                    {representativeStatus(stats)}
-                  </Text>
-                </View>
-              </Block>
-              <Block xsSize='50%'>
-                <View style={styles.cell}>
-                  <Text style={styles.key}>Last Voted</Text>
-                  <Text style={styles.value}>{lastVoted(stats)}</Text>
-                </View>
-              </Block>
-            </Section>
-            <Section>
-              <Block xsSize='50%'>
-                <View style={styles.cell}>
-                  <Text style={styles.key}>Weight</Text>
-                  <Text style={styles.value}>{weight(stats)}</Text>
-                </View>
-              </Block>
-              <Block xsSize='50%'>
-                <View style={styles.cell}>
-                  <Text style={styles.key}>Latency</Text>
-                  <Text style={styles.value}>{latency(stats)}</Text>
-                </View>
-              </Block>
-            </Section>
-            <Section>
-              <Block xsSize='50%'>
-                <View style={styles.cell}>
-                  <Text style={styles.key}>Uptime</Text>
-                  <Text style={styles.value}>{uptime(stats)}</Text>
-                </View>
-              </Block>
-              <Block xsSize='50%'>
-                <View style={styles.cell}>
-                  <Text style={styles.key}>Ninja Score</Text>
-                  <Text style={styles.value}>{ninjaScore(stats)}</Text>
-                </View>
-              </Block>
-            </Section>
+    <>
+      <View style={styles.head} />
+      <Grid scrollable stretchable>
+        <Section>
+          <Block>
+            <Grid stretchable>
+              <Section>
+                <Block>
+                  <Text style={styles.header}>Representative</Text>
+                </Block>
+              </Section>
+              <Section>
+                <Block xsSize='50%'>
+                  <View style={styles.cell}>
+                    <Text style={styles.key}>Status</Text>
+                    <Text style={styles.value}>
+                      {representativeStatus(stats)}
+                    </Text>
+                  </View>
+                </Block>
+                <Block xsSize='50%'>
+                  <View style={styles.cell}>
+                    <Text style={styles.key}>Last Voted</Text>
+                    <Text style={styles.value}>{lastVoted(stats)}</Text>
+                  </View>
+                </Block>
+              </Section>
+              <Section>
+                <Block xsSize='50%'>
+                  <View style={styles.cell}>
+                    <Text style={styles.key}>Weight</Text>
+                    <Text style={styles.value}>{weight(stats)}</Text>
+                  </View>
+                </Block>
+                <Block xsSize='50%'>
+                  <View style={styles.cell}>
+                    <Text style={styles.key}>Latency</Text>
+                    <Text style={styles.value}>{latency(stats)}</Text>
+                  </View>
+                </Block>
+              </Section>
+              <Section>
+                <Block xsSize='50%'>
+                  <View style={styles.cell}>
+                    <Text style={styles.key}>Uptime</Text>
+                    <Text style={styles.value}>{uptime(stats)}</Text>
+                  </View>
+                </Block>
+                <Block xsSize='50%'>
+                  <View style={styles.cell}>
+                    <Text style={styles.key}>Ninja Score</Text>
+                    <Text style={styles.value}>{ninjaScore(stats)}</Text>
+                  </View>
+                </Block>
+              </Section>
 
-            <Section>
-              <Block>
-                <Text style={styles.header}>Exchange</Text>
-              </Block>
-            </Section>
-            <Section>
-              <Block xsSize='50%'>
-                <View style={styles.cell}>
-                  <Text style={styles.key}>Mkt Cap</Text>
-                  <Text style={styles.value}>{marketCap(stats)}</Text>
-                </View>
-              </Block>
-              <Block xsSize='50%'>
-                <View style={styles.cell}>
-                  <Text style={styles.key}>Liquidity</Text>
-                  <Text style={styles.value}>{liquidity(stats)}</Text>
-                </View>
-              </Block>
-            </Section>
-            <Section>
-              <Block xsSize='50%'>
-                <View style={styles.cell}>
-                  <Text style={styles.key}>Vol (24h)</Text>
-                  <Text style={styles.value}>{exchangeVolume(stats)}</Text>
-                </View>
-              </Block>
-              <Block xsSize='50%'>
-                <View style={styles.cell}>
-                  <Text style={styles.key}>Vol/Mkt Cap</Text>
-                  <Text style={styles.value}>{volMktCap(stats)}</Text>
-                </View>
-              </Block>
-            </Section>
+              <Section>
+                <Block>
+                  <Text style={styles.header}>Exchange</Text>
+                </Block>
+              </Section>
+              <Section>
+                <Block xsSize='50%'>
+                  <View style={styles.cell}>
+                    <Text style={styles.key}>Mkt Cap</Text>
+                    <Text style={styles.value}>{marketCap(stats)}</Text>
+                  </View>
+                </Block>
+                <Block xsSize='50%'>
+                  <View style={styles.cell}>
+                    <Text style={styles.key}>Liquidity</Text>
+                    <Text style={styles.value}>{liquidity(stats)}</Text>
+                  </View>
+                </Block>
+              </Section>
+              <Section>
+                <Block xsSize='50%'>
+                  <View style={styles.cell}>
+                    <Text style={styles.key}>Vol (24h)</Text>
+                    <Text style={styles.value}>{exchangeVolume(stats)}</Text>
+                  </View>
+                </Block>
+                <Block xsSize='50%'>
+                  <View style={styles.cell}>
+                    <Text style={styles.key}>Vol/Mkt Cap</Text>
+                    <Text style={styles.value}>{volMktCap(stats)}</Text>
+                  </View>
+                </Block>
+              </Section>
 
-            <Section>
-              <Block>
-                <Text style={styles.header}>Network</Text>
-              </Block>
-            </Section>
-            <Section>
-              <Block xsSize='50%'>
-                <View style={styles.cell}>
-                  <Text style={styles.key}>CPS</Text>
-                  <Text style={styles.value}>
-                    {confirmationsPerSecond(stats)}
-                  </Text>
-                </View>
-              </Block>
-              <Block xsSize='50%'>
-                <View style={styles.cell}>
-                  <Text style={styles.key}>Conf. Time</Text>
-                  <Text style={styles.value}>{confirmationTime(stats)}</Text>
-                </View>
-              </Block>
-            </Section>
-            <Section>
-              <Block xsSize='50%'>
-                <View style={styles.cell}>
-                  <Text style={styles.key}>Difficulty</Text>
-                  <Text style={styles.value}>{difficulty(stats)}</Text>
-                </View>
-              </Block>
-              <Block xsSize='50%'>
-                <View style={styles.cell}>
-                  <Text style={styles.key}>Vol (24h)</Text>
-                  <Text style={styles.value}>{networkVolume(stats)}</Text>
-                </View>
-              </Block>
-            </Section>
-            <Section>
-              <Block xsSize='50%'>
-                <View style={styles.cell}>
-                  <Text style={styles.key}>Prin. Reps</Text>
-                  <Text style={styles.value}>
-                    {principalRepresentatives(stats)}
-                  </Text>
-                </View>
-              </Block>
-              <Block xsSize='50%'>
-                <View style={styles.cell}>
-                  <Text style={styles.key}>Online Stake</Text>
-                  <Text style={styles.value}>{onlineStake(stats)}</Text>
-                </View>
-              </Block>
-            </Section>
-          </Grid>
-        </Block>
-      </Section>
-    </Grid>
+              <Section>
+                <Block>
+                  <Text style={styles.header}>Network</Text>
+                </Block>
+              </Section>
+              <Section>
+                <Block xsSize='50%'>
+                  <View style={styles.cell}>
+                    <Text style={styles.key}>CPS</Text>
+                    <Text style={styles.value}>
+                      {confirmationsPerSecond(stats)}
+                    </Text>
+                  </View>
+                </Block>
+                <Block xsSize='50%'>
+                  <View style={styles.cell}>
+                    <Text style={styles.key}>Conf. Time</Text>
+                    <Text style={styles.value}>{confirmationTime(stats)}</Text>
+                  </View>
+                </Block>
+              </Section>
+              <Section>
+                <Block xsSize='50%'>
+                  <View style={styles.cell}>
+                    <Text style={styles.key}>Difficulty</Text>
+                    <Text style={styles.value}>{difficulty(stats)}</Text>
+                  </View>
+                </Block>
+                <Block xsSize='50%'>
+                  <View style={styles.cell}>
+                    <Text style={styles.key}>Vol (24h)</Text>
+                    <Text style={styles.value}>{networkVolume(stats)}</Text>
+                  </View>
+                </Block>
+              </Section>
+              <Section>
+                <Block xsSize='50%'>
+                  <View style={styles.cell}>
+                    <Text style={styles.key}>Prin. Reps</Text>
+                    <Text style={styles.value}>
+                      {principalRepresentatives(stats)}
+                    </Text>
+                  </View>
+                </Block>
+                <Block xsSize='50%'>
+                  <View style={styles.cell}>
+                    <Text style={styles.key}>Online Stake</Text>
+                    <Text style={styles.value}>{onlineStake(stats)}</Text>
+                  </View>
+                </Block>
+              </Section>
+            </Grid>
+          </Block>
+        </Section>
+      </Grid>
+    </>
   )
 }
 
 const styles = StyleSheet.create({
+  head: {
+    height: 100
+  },
   header: {
     fontSize: 18,
     fontWeight: '700',

@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { Button, TouchableRipple } from 'react-native-paper'
+import { Button, TouchableRipple, IconButton } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import constants from '@core/constants'
@@ -8,6 +8,14 @@ import constants from '@core/constants'
 export default function () {
   return (
     <View style={styles.container}>
+      <View>
+        <IconButton
+          size={36}
+          color='white'
+          icon='crop-free'
+          onPress={() => console.log('Pressed')}
+        />
+      </View>
       <View style={styles.amountContainer}>
         <Text style={styles.amountText}>$0</Text>
       </View>
@@ -77,6 +85,7 @@ export default function () {
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 35,
     backgroundColor: constants.green,
     flex: 1,
     flexDirection: 'column'
