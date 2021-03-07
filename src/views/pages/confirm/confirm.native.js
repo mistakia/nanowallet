@@ -8,6 +8,8 @@ import {
 } from 'react-native'
 import { IconButton, TextInput } from 'react-native-paper'
 
+import constants from '@core/constants'
+
 export default function () {
   return (
     <KeyboardAvoidingView
@@ -63,7 +65,7 @@ const styles = StyleSheet.create({
     height: 80
   },
   warning: {
-    color: 'red'
+    color: constants.red
   },
   input: {
     backgroundColor: '#FFFFFF'

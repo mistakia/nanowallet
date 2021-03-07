@@ -3,6 +3,14 @@ import { View, Text, StyleSheet } from 'react-native'
 import moment from 'moment'
 import { BigNumber } from 'bignumber.js'
 
+import constants from '@core/constants'
+
+function formatAddress(address) {
+  const first = address.slice(0, 13)
+  const last = address.slice(-8)
+  return `${first} ... ${last}`
+}
+
 export default function ({ transaction }) {
   const timestamp = moment(transaction.local_timestamp, 'X')
   const isSend = transaction.type === 'send'
@@ -33,14 +41,16 @@ export default function ({ transaction }) {
 
         <View>
           <Text style={styles.label}>{isSend ? 'To' : 'From'}</Text>
-          <Text>{transaction.account}</Text>
+          <Text style={styles.address}>
+            {formatAddress(transaction.account)}
+          </Text>
         </View>
       </View>
     </View>
   )
 }
 
-const borderColor = '#CCC'
+const borderColor = '#F0F0F0'
 
 const styles = StyleSheet.create({
   container: {
@@ -91,22 +101,26 @@ const styles = StyleSheet.create({
     color: 'rgba(0,0,0,0.6)'
   },
   send: {
-    borderColor: 'red'
+    borderColor: constants.red
   },
   receive: {
-    borderColor: 'green'
+    borderColor: constants.green
   },
   amount: {
     fontWeight: '800'
   },
   sendAmount: {
-    color: 'red'
+    color: constants.red
   },
   receiveAmount: {
-    color: 'green'
+    color: constants.green
   },
   label: {
     fontSize: 11,
     fontWeight: '800'
+  },
+  address: {
+    fontFamily: 'Courier',
+    fontVariant: ['tabular-nums']
   }
 })

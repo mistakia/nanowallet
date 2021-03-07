@@ -8,37 +8,37 @@ export default function () {
       <View style={styles.header} />
       <View>
         <List.Item
+          style={styles.row}
           title='Security'
-          description='Item description'
-          left={(props) => <List.Icon {...props} icon='shield-check' />}
+          description='Biometrics, Auto-Lock, Wallet Password'
           right={(props) => <List.Icon {...props} icon='chevron-right' />}
         />
         <List.Item
+          style={styles.row}
           title='Privacy'
-          description='Item description'
-          left={(props) => <List.Icon {...props} icon='shield-account' />}
+          description='Cold Storage, Hot Wallet'
           right={(props) => <List.Icon {...props} icon='chevron-right' />}
         />
         <List.Item
-          title='Backup Seed / Secret Phase'
-          description='Item description'
-          left={(props) => <List.Icon {...props} icon='backup-restore' />}
+          style={styles.row}
+          title='Backup Wallet'
+          description='Copy Seed, Secret Phrase'
           right={(props) => <List.Icon {...props} icon='chevron-right' />}
         />
         <List.Item
+          style={styles.row}
           title='Node Configuration'
-          description='Item description'
-          left={(props) => <List.Icon {...props} icon='server-network' />}
+          description='API Endpoints, PoW Source'
           right={(props) => <List.Icon {...props} icon='chevron-right' />}
         />
         <List.Item
+          style={styles.row}
           title='Support'
-          description='Item description'
-          left={(props) => <List.Icon {...props} icon='help-circle' />}
+          description='Help, FAQs, Forum'
           right={(props) => <List.Icon {...props} icon='chevron-right' />}
         />
         <View style={styles.exitContainer}>
-          <Button mode='contained' icon='alert'>
+          <Button mode='text' icon='alert'>
             Exit Wallet
           </Button>
         </View>
@@ -61,5 +61,13 @@ const styles = StyleSheet.create({
   exitContainer: {
     marginTop: 60,
     padding: 8
+  },
+  row: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#F0F0F0',
+    marginLeft: 16,
+    marginRight: 16,
+    paddingLeft: 0,
+    paddingRight: 0
   }
 })

@@ -29,7 +29,7 @@ export default class App extends React.Component {
       label: 'Transaction',
       barColor: constants.green,
       text: 'white',
-      pressColor: 'rgba(255, 255, 255, 0.16)'
+      pressColor: constants.green
     },
     {
       key: 'activity',

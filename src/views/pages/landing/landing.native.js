@@ -1,11 +1,56 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
-import { Button } from 'react-native-paper'
+import { View, StyleSheet, Text } from 'react-native'
+import { Button, Title } from 'react-native-paper'
 import Modal from 'react-native-modal'
+import Svg, { Path, Circle } from 'react-native-svg'
 
+import constants from '@core/constants'
 import Import from '@pages/import'
 import Create from '@pages/create'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
+
+function LogoCircle(props) {
+  return (
+    <Svg x={0} y={0} viewBox='0 0 1770.2 780.1' {...props}>
+      <Path
+        d='M885.1 106.2c-156.7 0-283.8 127.1-283.8 283.8 0 156.7 127.1 283.8 283.8 283.8 156.7 0 283.8-127.1 283.8-283.8 0-156.7-127.1-283.8-283.8-283.8z'
+        fill={constants.green}
+      />
+      <Path
+        fill='#FFF'
+        d='M907.5 390c0 12.4-10 22.4-22.4 22.4s-22.4-10-22.4-22.4c0-16.8-5.6-22.4-22.4-22.4S818 373.3 818 390c0 12.4-10 22.4-22.4 22.4s-22.4-10-22.4-22.4 10-22.4 22.4-22.4c16.8 0 22.4-5.6 22.4-22.4 0-12.4 10-22.4 22.4-22.4s22.4 10 22.4 22.4c0 16.8 5.6 22.4 22.4 22.4 12.2.1 22.3 10.1 22.3 22.4z'
+      />
+      <Circle fill='#FFF' cx={750.9} cy={434.8} r={22.4} />
+      <Path
+        fill='#FFF'
+        d='M1041.6 345.3c0 12.4-10 22.4-22.4 22.4-16.8 0-22.4 5.6-22.4 22.4 0 12.4-10 22.4-22.4 22.4-16.8 0-22.4 5.6-22.4 22.4 0 12.4-10 22.4-22.4 22.4s-22.4-10-22.4-22.4 10-22.4 22.4-22.4c16.8 0 22.4-5.6 22.4-22.4 0-12.4 10-22.4 22.4-22.4 16.8 0 22.4-5.6 22.4-22.4 0-12.4 10-22.4 22.4-22.4s22.4 10.1 22.4 22.4z'
+      />
+    </Svg>
+  )
+}
+
+function Logo(props) {
+  return (
+    <Svg
+      id='prefix__Layer_1'
+      xmlns='http://www.w3.org/2000/svg'
+      width='40%'
+      height='40%'
+      viewBox='0 0 1770.2 780.1'
+      xmlSpace='preserve'
+      {...props}>
+      <Path
+        fill={constants.green}
+        d='M985.7 390c0 55.6-45.1 100.6-100.6 100.6s-100.7-45-100.7-100.6c0-75.5-25.2-100.6-100.6-100.6S583.2 314.6 583.2 390c0 55.6-45.1 100.6-100.6 100.6s-100.7-45-100.7-100.6c0-55.6 45.1-100.6 100.6-100.6 75.5 0 100.6-25.2 100.6-100.6 0-55.6 45.1-100.6 100.6-100.6s100.6 45.1 100.6 100.6c0 75.5 25.2 100.6 100.6 100.6 55.8 0 100.8 45.1 100.8 100.6z'
+      />
+      <Circle fill={constants.green} cx={281.2} cy={591.3} r={100.6} />
+      <Path
+        fill={constants.green}
+        d='M1589.6 188.7c0 55.6-45.1 100.6-100.6 100.6-75.5 0-100.6 25.2-100.6 100.6 0 55.6-45.1 100.6-100.6 100.6-75.5 0-100.6 25.2-100.6 100.6 0 55.6-45.1 100.6-100.6 100.6-55.6 0-100.6-45.1-100.6-100.6 0-55.6 45.1-100.6 100.6-100.6 75.5 0 100.6-25.2 100.6-100.6 0-55.6 45.1-100.6 100.6-100.6 75.5 0 100.6-25.2 100.6-100.6 0-55.6 45.1-100.6 100.6-100.6 55.5 0 100.6 45.1 100.6 100.6z'
+      />
+    </Svg>
+  )
+}
 
 export default class LandingPage extends React.Component {
   constructor(props) {
@@ -40,7 +85,11 @@ export default class LandingPage extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.lead} />
+        <View style={styles.lead}>
+          <Logo />
+          <Title style={styles.title}>Welcome to NANO</Title>
+          <Text>Money without fees</Text>
+        </View>
         <View style={styles.actions}>
           <Button
             style={styles.action}
@@ -52,7 +101,6 @@ export default class LandingPage extends React.Component {
             Import
           </Button>
         </View>
-
         <Modal
           isVisible={this.state.importVisible}
           backdropColor='white'
@@ -79,7 +127,9 @@ const styles = StyleSheet.create({
     alignItems: 'stretch'
   },
   lead: {
-    flex: 1
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   actions: {
     paddingTop: 30,
@@ -91,5 +141,9 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     marginTop: 15,
     marginRight: 15
+  },
+  title: {
+    marginBottom: 16,
+    fontSize: 24
   }
 })

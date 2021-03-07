@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import moment from 'moment'
 import { BigNumber } from 'bignumber.js'
 
+import constants from '@core/constants'
 import { Grid, Section, Block } from 'react-native-responsive-layout'
 
 function representativeStatus(stats) {
@@ -321,13 +322,13 @@ const styles = StyleSheet.create({
   value: {},
 
   online: {
-    backgroundColor: 'green',
+    backgroundColor: constants.green,
     height: 10,
     width: 10,
     borderRadius: 10
   },
   offline: {
-    backgroundColor: 'red',
+    backgroundColor: constants.red,
     height: 10,
     width: 10,
     borderRadius: 10

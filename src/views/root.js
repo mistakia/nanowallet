@@ -2,7 +2,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { withRouter } from 'react-router'
 import { ConnectedRouter } from 'connected-react-router/immutable'
-import { Provider as PaperProvider } from 'react-native-paper'
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper'
 
 import createStore from '@core/store'
 import history from '@core/history'
@@ -13,10 +13,20 @@ const store = createStore(initialState, history)
 
 const ConnectedApp = withRouter(App)
 
+const theme = {
+  ...DefaultTheme,
+  roundness: 20,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: 'rgb(0,200,5)',
+    accent: '#676686'
+  }
+}
+
 const Root = () => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <PaperProvider>
+      <PaperProvider theme={theme}>
         <ConnectedApp />
       </PaperProvider>
     </ConnectedRouter>
