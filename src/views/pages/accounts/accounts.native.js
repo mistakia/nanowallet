@@ -3,6 +3,7 @@ import { ScrollView, View, Text, StyleSheet } from 'react-native'
 import { IconButton, Button } from 'react-native-paper'
 
 import AccountItem from '@components/account-item'
+import Logo from '@components/logo'
 
 export default class AccountsPage extends React.Component {
   render() {
@@ -15,7 +16,10 @@ export default class AccountsPage extends React.Component {
         <ScrollView style={styles.body}>
           <View style={styles.balanceContainer}>
             <Text style={styles.balanceHeader}>Total Balance</Text>
-            <Text style={styles.balance}>420.69 N</Text>
+            <View style={styles.balanceNano}>
+              <Logo color='black' size={50} />
+              <Text style={styles.balanceText}>420.69</Text>
+            </View>
           </View>
           <View>
             {wallet.accounts.map((a, i) => (
@@ -59,9 +63,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: 90,
-    marginBottom: 30
+    marginBottom: 30,
+    flexDirection: 'column'
   },
-  balance: {
+  balanceNano: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  balanceText: {
     fontWeight: '800',
     fontSize: 30
   },

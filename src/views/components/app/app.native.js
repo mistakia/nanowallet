@@ -12,6 +12,7 @@ import Routes from '@views/routes'
 import Snackbar from 'react-native-snackbar'
 import constants from '@core/constants'
 import Accounts from '@pages/accounts'
+import Logo from '@components/logo'
 
 export default class App extends React.Component {
   tabs = [
@@ -51,7 +52,8 @@ export default class App extends React.Component {
 
   state = {
     activeTab: 'dashboard',
-    accountsVisible: false
+    accountsVisible: false,
+    text: 'black'
   }
 
   toggleAccounts = () => {
@@ -95,9 +97,13 @@ export default class App extends React.Component {
           <View
             style={{ backgroundColor: this.state.barColor, ...styles.head }}>
             <View style={styles.balanceContainer}>
-              <Text style={{ color: this.state.text, ...styles.balanceNano }}>
-                420.69 N
-              </Text>
+              <View style={styles.balanceNano}>
+                <Logo size={25} color={this.state.text} />
+                <Text
+                  style={{ color: this.state.text, ...styles.balanceNanoText }}>
+                  420.69
+                </Text>
+              </View>
               <Text style={{ color: this.state.text, ...styles.balanceUsd }}>
                 $2,137.10
               </Text>
@@ -145,7 +151,16 @@ const styles = StyleSheet.create({
     right: 0,
     zIndex: 1
   },
+  balanceContainer: {
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end'
+  },
   balanceNano: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  balanceNanoText: {
     fontSize: 18,
     fontWeight: '700'
   },

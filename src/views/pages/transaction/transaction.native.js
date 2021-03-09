@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import { Button, TouchableRipple, IconButton } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
+import Logo from '@components/logo'
 import constants from '@core/constants'
 
 export default function () {
@@ -17,7 +18,8 @@ export default function () {
         />
       </View>
       <View style={styles.amountContainer}>
-        <Text style={styles.amountText}>$0</Text>
+        <Logo color='white' size={80} />
+        <Text style={styles.amountText}>0</Text>
       </View>
       <View style={styles.keyboardContainer}>
         <View style={styles.keyboardRow}>
@@ -93,11 +95,13 @@ const styles = StyleSheet.create({
   amountContainer: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    flexDirection: 'row'
   },
   amountText: {
     color: 'white',
-    fontSize: 60
+    fontSize: 60,
+    paddingRight: 30
   },
   keyboardContainer: {
     flex: 1,
