@@ -6,6 +6,6 @@ import { walletActions, getWallet } from '@core/wallet'
 import LandingPage from './landing'
 
 const mapStateToProps = createSelector(getWallet, (wallet) => ({ wallet }))
-const mapDispatchToProps = { clear: walletActions.clear }
+const mapDispatchToProps = { exit: walletActions.exit }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LandingPage)

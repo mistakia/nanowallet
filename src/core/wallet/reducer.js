@@ -34,7 +34,7 @@ export function walletReducer(state = initialState(), { payload, type }) {
     case walletActions.CONFIRM_WALLET:
       return state.merge({ confirmed: true })
 
-    case walletActions.CLEAR_WALLET:
+    case walletActions.EXIT_WALLET:
       return initialState()
 
     case walletActions.SET_ACCOUNTS:

@@ -2,8 +2,8 @@ export const walletActions = {
   LOAD_WALLET: 'LOAD_WALLET',
   CREATE_WALLET: 'CREATE_WALLET',
   SET_WALLET: 'SET_WALLET',
-  CLEAR_WALLET: 'CLEAR_WALLET',
   CONFIRM_WALLET: 'CONFIRM_WALLET',
+  EXIT_WALLET: 'EXIT_WALLET',
 
   COPY_SEED: 'COPY_SEED',
 
@@ -27,8 +27,8 @@ export const walletActions = {
     payload: w
   }),
 
-  clear: () => ({
-    type: walletActions.CLEAR_WALLET
+  exit: () => ({
+    type: walletActions.EXIT_WALLET
   }),
 
   confirm: () => ({

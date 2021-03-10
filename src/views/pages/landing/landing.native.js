@@ -35,7 +35,7 @@ export default class LandingPage extends React.Component {
   }
 
   cancelCreate = () => {
-    this.props.clear()
+    this.props.exit()
     this.setState({ createVisible: false })
   }
 
