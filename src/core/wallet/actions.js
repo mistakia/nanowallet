@@ -5,6 +5,8 @@ export const walletActions = {
   CONFIRM_WALLET: 'CONFIRM_WALLET',
   EXIT_WALLET: 'EXIT_WALLET',
 
+  IMPORT_FROM_SEED: 'IMPORT_FROM_SEED',
+
   COPY_SEED: 'COPY_SEED',
 
   ADD_ACCOUNT: 'ADD_ACCOUNT',
@@ -42,5 +44,10 @@ export const walletActions = {
   setAccounts: (accounts) => ({
     type: walletActions.SET_ACCOUNTS,
     payload: accounts
+  }),
+
+  importFromSeed: (seed) => ({
+    type: walletActions.IMPORT_FROM_SEED,
+    payload: { seed }
   })
 }

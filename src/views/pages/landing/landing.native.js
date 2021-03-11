@@ -39,6 +39,10 @@ export default class LandingPage extends React.Component {
     this.setState({ createVisible: false })
   }
 
+  cancelImport = () => {
+    this.setState({ importVisible: false })
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -60,9 +64,13 @@ export default class LandingPage extends React.Component {
         </View>
         <Modal
           isVisible={this.state.importVisible}
-          backdropColor='white'
+          backdropColor='black'
+          style={{ margin: 0 }}
+          avoidKeyboard={true}
+          onBackdropPress={this.cancelImport}
+          onSwipeComplete={this.cancelImport}
           swipeDirection='down'>
-          <Import />
+          <Import handleCancel={this.cancelImport} />
         </Modal>
         <Modal
           isVisible={this.state.createVisible}
