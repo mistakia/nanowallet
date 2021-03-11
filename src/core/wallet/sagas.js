@@ -16,18 +16,40 @@ import { getWallet } from './selectors'
 import { localStorageAdapter, validateSeed } from '@core/utils'
 import constants from '@core/constants'
 
+const generateWalletFromSeed = (seed) => {
+  const type = validateSeed(seed)
+  switch (type) {
+    case constants.SEED_BLAKE2B:
+      return wallet.fromLegacySeed(seed)
+
+    case constants.SEED_BIP39:
+      return wallet.fromSeed(seed)
+  }
+}
+
+const generateAccountsFromSeed = (seed, from, to) => {
+  const type = validateSeed(seed)
+  switch (type) {
+    case constants.SEED_BLAKE2B:
+      return wallet.legacyAccounts(seed, from, to)
+
+    case constants.SEED_BIP39:
+      return wallet.accounts(seed, from, to)
+  }
+}
+
 export function* load() {
   const seed = yield call(localStorageAdapter.getItem, 'seed')
   if (!seed) {
     return yield put(push('/landing'))
   }
-  const w = wallet.fromLegacySeed(seed)
+  const w = generateWalletFromSeed(seed)
   yield put(walletActions.set(w))
   yield put(walletActions.confirm())
 
   const accountIndex = yield call(localStorageAdapter.getItem, 'accountIndex')
   if (accountIndex) {
-    const accounts = wallet.accounts(w.seed, 1, accountIndex)
+    const accounts = generateAccountsFromSeed(w.seed, 1, accountIndex)
     yield put(walletActions.setAccounts(accounts))
   }
 }
@@ -49,6 +71,7 @@ export function* copy() {
 
 export function* exit() {
   localStorageAdapter.removeItem('seed')
+  localStorageAdapter.removeItem('accountIndex')
   yield put(push('/landing'))
 }
 
@@ -59,20 +82,9 @@ export function* confirm() {
 export function* add() {
   const w = yield select(getWallet)
   const idx = w.accounts.size
-  const accounts = wallet.accounts(w.seed, idx - 1, idx)
+  const accounts = generateAccountsFromSeed(w.seed, idx - 1, idx)
   localStorageAdapter.setItem('accountIndex', idx)
   yield put(walletActions.setAccounts(accounts))
-}
-
-const generateWalletFromSeed = (seed) => {
-  const type = validateSeed(seed)
-  switch (type) {
-    case constants.SEED_BLAKE2B:
-      return wallet.fromLegacySeed(seed)
-
-    case constants.SEED_BIP39:
-      return wallet.fromSeed(seed)
-  }
 }
 
 export function* importFromSeed({ payload }) {
@@ -83,7 +95,7 @@ export function* importFromSeed({ payload }) {
 
   const accountIndex = yield call(localStorageAdapter.getItem, 'accountIndex')
   if (accountIndex) {
-    const accounts = wallet.accounts(w.seed, 1, accountIndex)
+    const accounts = generateAccountsFromSeed(w.seed, 1, accountIndex)
     yield put(walletActions.setAccounts(accounts))
   }
 }
