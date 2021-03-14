@@ -15,6 +15,7 @@ import { walletActions } from './actions'
 import { getWallet } from './selectors'
 import { localStorageAdapter, validateSeed } from '@core/utils'
 import constants from '@core/constants'
+import { accountActions } from '@core/accounts'
 
 const generateWalletFromSeed = (seed) => {
   const type = validateSeed(seed)
@@ -52,12 +53,15 @@ export function* load() {
     const accounts = generateAccountsFromSeed(w.seed, 1, accountIndex)
     yield put(walletActions.setAccounts(accounts))
   }
+
+  yield put(accountActions.load(w.accounts[0]))
 }
 
 export function* create() {
   const w = wallet.generateLegacy()
   yield put(walletActions.set(w))
   localStorageAdapter.setItem('seed', w.seed)
+  yield put(accountActions.load(w.accounts[0]))
 }
 
 export function* copy() {
@@ -98,6 +102,7 @@ export function* importFromSeed({ payload }) {
     const accounts = generateAccountsFromSeed(w.seed, 1, accountIndex)
     yield put(walletActions.setAccounts(accounts))
   }
+  yield put(accountActions.load(w.accounts[0]))
 }
 
 //= ====================================

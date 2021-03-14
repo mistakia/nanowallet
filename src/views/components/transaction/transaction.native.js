@@ -1,9 +1,9 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import moment from 'moment'
-import { BigNumber } from 'bignumber.js'
 
 import constants from '@core/constants'
+import { formatBalance } from '@core/utils'
 
 function formatAddress(address) {
   const first = address.slice(0, 13)
@@ -14,10 +14,7 @@ function formatAddress(address) {
 export default function ({ transaction }) {
   const timestamp = moment(transaction.local_timestamp, 'X')
   const isSend = transaction.type === 'send'
-  const amount = new BigNumber(transaction.amount_decimal)
-  const amountFormatted = amount.isLessThan(1)
-    ? amount.toFixed(6)
-    : amount.toFormat(2)
+  const amountFormatted = formatBalance(transaction.amount)
   const amountStyle = isSend ? styles.sendAmount : styles.receiveAmount
 
   return (

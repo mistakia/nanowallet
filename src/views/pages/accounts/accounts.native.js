@@ -4,10 +4,11 @@ import { IconButton, Button } from 'react-native-paper'
 
 import AccountItem from '@components/account-item'
 import Logo from '@components/logo'
+import { formatBalance } from '@core/utils'
 
 export default class AccountsPage extends React.Component {
   render() {
-    const { handleClose, wallet, addAccount } = this.props
+    const { handleClose, wallet, addAccount, account } = this.props
     return (
       <>
         <View style={styles.header}>
@@ -18,7 +19,9 @@ export default class AccountsPage extends React.Component {
             <Text style={styles.balanceHeader}>Total Balance</Text>
             <View style={styles.balanceNano}>
               <Logo color='black' size={50} />
-              <Text style={styles.balanceText}>420.69</Text>
+              <Text style={styles.balanceText}>
+                {formatBalance(account.balance)}
+              </Text>
             </View>
           </View>
           <View>

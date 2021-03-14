@@ -1,1 +1,6 @@
-export { getMarkets, getRepresentative, getNetwork } from './sagas'
+export {
+  getAccountInfo,
+  getMarkets,
+  getRepresentative,
+  getNetwork
+} from './sagas'

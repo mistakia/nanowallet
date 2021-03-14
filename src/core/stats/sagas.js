@@ -1,7 +1,8 @@
-import { call, fork, throttle } from 'redux-saga/effects'
+import { call, fork, throttle, select, takeLatest } from 'redux-saga/effects'
 
 import { statActions } from './actions'
 import { getMarkets, getRepresentative, getNetwork } from '@core/api'
+import { accountActions, getSelectedAccount } from '@core/accounts'
 
 export function* loadMarkets() {
   yield call(getMarkets)
@@ -12,10 +13,10 @@ export function* loadNetwork() {
 }
 
 export function* loadRepresentative() {
-  // TODO - get selected account representative
-  const address =
-    'nano_3zapp5z141qpjipsb1jnjdmk49jwqy58i6u6wnyrh6x7woajeyme85shxewt'
-  yield call(getRepresentative, { address })
+  const account = yield select(getSelectedAccount)
+  if (account.representative) {
+    yield call(getRepresentative, { address: account.representative })
+  }
 }
 
 //= ====================================
@@ -34,6 +35,13 @@ export function* watchLoadNetwork() {
   yield throttle(600000, statActions.LOAD_NETWORK, loadNetwork)
 }
 
+export function* watchGetAccountInfoFulfilled() {
+  yield takeLatest(
+    accountActions.GET_ACCOUNT_INFO_FULFILLED,
+    loadRepresentative
+  )
+}
+
 //= ====================================
 //  ROOT
 // -------------------------------------
@@ -41,5 +49,6 @@ export function* watchLoadNetwork() {
 export const statSagas = [
   fork(watchLoadMarkets),
   fork(watchLoadRepresentative),
-  fork(watchLoadNetwork)
+  fork(watchLoadNetwork),
+  fork(watchGetAccountInfoFulfilled)
 ]

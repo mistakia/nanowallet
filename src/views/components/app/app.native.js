@@ -13,6 +13,7 @@ import Snackbar from 'react-native-snackbar'
 import constants from '@core/constants'
 import Accounts from '@pages/accounts'
 import Logo from '@components/logo'
+import { formatBalance } from '@core/utils'
 
 export default class App extends React.Component {
   tabs = [
@@ -101,7 +102,7 @@ export default class App extends React.Component {
                 <Logo size={25} color={this.state.text} />
                 <Text
                   style={{ color: this.state.text, ...styles.balanceNanoText }}>
-                  420.69
+                  {formatBalance(this.props.account.balance)}
                 </Text>
               </View>
               <Text style={{ color: this.state.text, ...styles.balanceUsd }}>

@@ -1,3 +1,5 @@
 export { localStorageAdapter } from './local-storage-adapter'
 export { log } from './log'
 export { validateSeed } from './validate-seed'
+export { getNode } from './get-node'
+export { formatBalance } from './format-balance'

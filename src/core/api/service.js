@@ -1,8 +1,28 @@
 /* global AbortController, fetch, Request */
 
 import queryString from 'query-string'
+import { getNode } from '@core/utils'
+
+const POST = (data) => ({
+  method: 'POST',
+  body: JSON.stringify(data),
+  headers: {
+    'Content-Type': 'application/json'
+  }
+})
 
 export const api = {
+  getAccountInfo({ address }) {
+    const url = getNode()
+    const data = {
+      action: 'account_info',
+      account: address,
+      representative: true,
+      pending: true
+    }
+    return { url, ...POST(data) }
+  },
+
   getRepresentative({ address }) {
     const url = `https://mynano.ninja/api/accounts/${address}`
     return { url }

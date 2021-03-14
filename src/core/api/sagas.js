@@ -8,6 +8,8 @@ import {
   getNetworkActions
 } from '@core/stats'
 
+import { getAccountInfoActions } from '@core/accounts'
+
 function* fetchAPI(apiFunction, actions, opts = {}) {
   // const { token } = yield select(getApp)
   const { abort, request } = apiRequest(apiFunction, opts /* , token */)
@@ -34,6 +36,12 @@ function* fetchAPI(apiFunction, actions, opts = {}) {
 function* fetch(...args) {
   yield race([call(fetchAPI.bind(null, ...args)), take(LOCATION_CHANGE)])
 }
+
+export const getAccountInfo = fetch.bind(
+  null,
+  api.getAccountInfo,
+  getAccountInfoActions
+)
 
 export const getMarkets = fetch.bind(null, api.getMarkets, getMarketsActions)
 export const getNetwork = fetch.bind(null, api.getNetwork, getNetworkActions)
