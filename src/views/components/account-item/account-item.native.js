@@ -3,12 +3,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import constants from '@core/constants'
-
-function formatAddress(address) {
-  const start = address.slice(0, 11)
-  const end = address.slice(-6)
-  return `${start}...${end}`
-}
+import { formatAddress } from '@core/utils'
 
 export default class AccountItem extends React.Component {
   render() {

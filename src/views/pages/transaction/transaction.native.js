@@ -4,14 +4,18 @@ import { View, Text, StyleSheet } from 'react-native'
 import { Button, TouchableRipple, IconButton } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { BigNumber } from 'bignumber.js'
+import Modal from 'react-native-modal'
 
 import Logo from '@components/logo'
 import constants from '@core/constants'
+import Receive from '@pages/receive'
 
 export class KeyboardButton extends PureComponent {
   ref = null
 
-  state = { fontSize: 24 }
+  state = {
+    fontSize: 24
+  }
   handleRef = (ref) => (this.ref = ref)
 
   handlePress = () => {
@@ -54,7 +58,8 @@ export class KeyboardButton extends PureComponent {
 
 export default class TransactionPage extends React.Component {
   state = {
-    amount: [0]
+    amount: [0],
+    receiveVisible: false
   }
 
   handleViewRef = (ref) => (this.view = ref)
@@ -101,6 +106,14 @@ export default class TransactionPage extends React.Component {
     this.setState({ amount: arr })
   }
 
+  toggleReceive = () => {
+    this.setState({ receiveVisible: !this.state.receiveVisible })
+  }
+
+  cancelReceive = () => {
+    this.setState({ receiveVisible: false })
+  }
+
   render() {
     let fontSize = 60
     const length = this.state.amount.length
@@ -111,68 +124,82 @@ export default class TransactionPage extends React.Component {
     }
 
     return (
-      <View style={styles.container}>
-        <View>
-          <IconButton
-            size={36}
-            color='white'
-            icon='crop-free'
-            onPress={() => console.log('Pressed')}
+      <>
+        <View style={styles.container}>
+          <View>
+            <IconButton
+              size={36}
+              color='white'
+              icon='crop-free'
+              onPress={() => console.log('Pressed')}
+            />
+          </View>
+          <Animatable.View
+            ref={this.handleViewRef}
+            style={styles.amountContainer}>
+            <Logo color='white' size={80} />
+            {this.state.amount.map((a, i) => (
+              <Animatable.Text
+                key={i}
+                style={{ ...styles.amountText, fontSize }}
+                animation='fadeInDown'
+                duration={200}>
+                {a}
+              </Animatable.Text>
+            ))}
+          </Animatable.View>
+          <View style={styles.keyboardContainer}>
+            <View style={styles.keyboardRow}>
+              <KeyboardButton onPress={() => this.addAmount(1)} text={1} />
+              <KeyboardButton onPress={() => this.addAmount(2)} text={2} />
+              <KeyboardButton onPress={() => this.addAmount(3)} text={3} />
+            </View>
+            <View style={styles.keyboardRow}>
+              <KeyboardButton onPress={() => this.addAmount(4)} text={4} />
+              <KeyboardButton onPress={() => this.addAmount(5)} text={5} />
+              <KeyboardButton onPress={() => this.addAmount(6)} text={6} />
+            </View>
+            <View style={styles.keyboardRow}>
+              <KeyboardButton onPress={() => this.addAmount(7)} text={7} />
+              <KeyboardButton onPress={() => this.addAmount(8)} text={8} />
+              <KeyboardButton onPress={() => this.addAmount(9)} text={9} />
+            </View>
+            <View style={styles.keyboardRow}>
+              <KeyboardButton onPress={this.addDecimal} text='.' />
+              <KeyboardButton onPress={() => this.addAmount(0)} text='0' />
+              <KeyboardButton onPress={this.removeAmount}>
+                <Icon name='chevron-left' size={30} color='white' />
+              </KeyboardButton>
+            </View>
+          </View>
+          <View style={styles.actions}>
+            <TouchableRipple
+              onPress={this.toggleReceive}
+              rippleColor='rgba(0, 0, 0, .32)'
+              style={styles.action}>
+              <Text style={styles.actionText}>Receive</Text>
+            </TouchableRipple>
+            <TouchableRipple
+              onPress={() => console.log('Pressed')}
+              rippleColor='rgba(0, 0, 0, .32)'
+              style={styles.action}>
+              <Text style={styles.actionText}>Send</Text>
+            </TouchableRipple>
+          </View>
+        </View>
+        <Modal
+          isVisible={this.state.receiveVisible}
+          backdropColor='black'
+          swipeDirection='down'
+          style={{ margin: 0 }}
+          onBackdropPress={this.cancelReceive}
+          onSwipeComplete={this.cancelReceive}>
+          <Receive
+            handleCancel={this.cancelReceive}
+            amount={this.state.amount.join('')}
           />
-        </View>
-        <Animatable.View
-          ref={this.handleViewRef}
-          style={styles.amountContainer}>
-          <Logo color='white' size={80} />
-          {this.state.amount.map((a, i) => (
-            <Animatable.Text
-              key={i}
-              style={{ ...styles.amountText, fontSize }}
-              animation='fadeInDown'
-              duration={200}>
-              {a}
-            </Animatable.Text>
-          ))}
-        </Animatable.View>
-        <View style={styles.keyboardContainer}>
-          <View style={styles.keyboardRow}>
-            <KeyboardButton onPress={() => this.addAmount(1)} text={1} />
-            <KeyboardButton onPress={() => this.addAmount(2)} text={2} />
-            <KeyboardButton onPress={() => this.addAmount(3)} text={3} />
-          </View>
-          <View style={styles.keyboardRow}>
-            <KeyboardButton onPress={() => this.addAmount(4)} text={4} />
-            <KeyboardButton onPress={() => this.addAmount(5)} text={5} />
-            <KeyboardButton onPress={() => this.addAmount(6)} text={6} />
-          </View>
-          <View style={styles.keyboardRow}>
-            <KeyboardButton onPress={() => this.addAmount(7)} text={7} />
-            <KeyboardButton onPress={() => this.addAmount(8)} text={8} />
-            <KeyboardButton onPress={() => this.addAmount(9)} text={9} />
-          </View>
-          <View style={styles.keyboardRow}>
-            <KeyboardButton onPress={this.addDecimal} text='.' />
-            <KeyboardButton onPress={() => this.addAmount(0)} text='0' />
-            <KeyboardButton onPress={this.removeAmount}>
-              <Icon name='chevron-left' size={30} color='white' />
-            </KeyboardButton>
-          </View>
-        </View>
-        <View style={styles.actions}>
-          <TouchableRipple
-            onPress={() => console.log('Pressed')}
-            rippleColor='rgba(0, 0, 0, .32)'
-            style={styles.action}>
-            <Text style={styles.actionText}>Receive</Text>
-          </TouchableRipple>
-          <TouchableRipple
-            onPress={() => console.log('Pressed')}
-            rippleColor='rgba(0, 0, 0, .32)'
-            style={styles.action}>
-            <Text style={styles.actionText}>Send</Text>
-          </TouchableRipple>
-        </View>
-      </View>
+        </Modal>
+      </>
     )
   }
 }

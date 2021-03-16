@@ -3,13 +3,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import moment from 'moment'
 
 import constants from '@core/constants'
-import { formatBalance } from '@core/utils'
-
-function formatAddress(address) {
-  const first = address.slice(0, 13)
-  const last = address.slice(-8)
-  return `${first} ... ${last}`
-}
+import { formatBalance, formatAddress } from '@core/utils'
 
 function blockType(block) {
   switch (block.blockType) {
@@ -69,7 +63,6 @@ function blockContent(block) {
 }
 
 export default function ({ block }) {
-  console.log(block)
   const timestamp =
     block.local_timestamp && block.local_timestamp !== '0'
       ? moment(block.local_timestamp, 'X').format('MMM D YY [at] HH:mm')

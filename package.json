@@ -27,6 +27,7 @@
     "react-native-material-bottom-navigation": "^1.0.5",
     "react-native-modal": "^11.7.0",
     "react-native-paper": "^4.7.1",
+    "react-native-qrcode-svg": "^6.1.1",
     "react-native-randombytes": "^3.6.0",
     "react-native-responsive-layout": "^1.2.0",
     "react-native-snackbar": "^2.3.2",
