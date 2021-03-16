@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   actionContainer: {
-    padding: 30
+    padding: 30,
+    marginBottom: 15
   }
 })

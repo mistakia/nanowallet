@@ -24,7 +24,7 @@ export default class ExitPage extends React.Component {
             your funds.
           </Paragraph>
           <Button
-            mode='outlined'
+            mode='text'
             onPress={this.props.handleCancel}
             style={styles.cancel}>
             Cancel

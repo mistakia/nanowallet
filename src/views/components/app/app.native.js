@@ -22,6 +22,7 @@ export default class App extends React.Component {
       icon: 'home-variant',
       label: 'Dashboard',
       barColor: 'white',
+      activeText: constants.green,
       text: 'black',
       pressColor: 'rgba(255, 255, 255, 0.16)'
     },
@@ -30,6 +31,7 @@ export default class App extends React.Component {
       icon: 'currency-usd',
       label: 'Transaction',
       barColor: constants.green,
+      activeText: 'white',
       text: 'white',
       pressColor: constants.green
     },
@@ -38,6 +40,7 @@ export default class App extends React.Component {
       icon: 'history',
       label: 'Activity',
       barColor: 'white',
+      activeText: constants.green,
       text: 'black',
       pressColor: 'rgba(255, 255, 255, 0.16)'
     },
@@ -46,6 +49,7 @@ export default class App extends React.Component {
       icon: 'cog',
       label: 'Settings',
       barColor: 'white',
+      activeText: constants.green,
       text: 'black',
       pressColor: 'rgba(255, 255, 255, 0.16)'
     }
@@ -72,7 +76,8 @@ export default class App extends React.Component {
   }
 
   renderIcon = (tab) => ({ isActive }) => {
-    const color = this.tabs.find((t) => t.key === this.state.activeTab).text
+    const t = this.tabs.find((t) => t.key === this.state.activeTab)
+    const color = isActive ? t.activeText : t.text
     return <IconButton size={30} color={color} icon={tab.icon} />
   }
 
