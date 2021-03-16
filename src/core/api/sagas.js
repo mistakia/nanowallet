@@ -8,7 +8,7 @@ import {
   getNetworkActions
 } from '@core/stats'
 
-import { getAccountInfoActions } from '@core/accounts'
+import { getAccountInfoActions, getAccountHistoryActions } from '@core/accounts'
 
 function* fetchAPI(apiFunction, actions, opts = {}) {
   // const { token } = yield select(getApp)
@@ -41,6 +41,11 @@ export const getAccountInfo = fetch.bind(
   null,
   api.getAccountInfo,
   getAccountInfoActions
+)
+export const getAccountHistory = fetch.bind(
+  null,
+  api.getAccountHistory,
+  getAccountHistoryActions
 )
 
 export const getMarkets = fetch.bind(null, api.getMarkets, getMarketsActions)

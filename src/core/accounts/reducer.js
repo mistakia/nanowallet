@@ -1,4 +1,4 @@
-import { Map } from 'immutable'
+import { Map, List } from 'immutable'
 
 import { accountActions } from './actions'
 import { createAccount } from './account'
@@ -26,6 +26,12 @@ export function accountsReducer(state = new Map(), { payload, type }) {
           isLoaded: true,
           ...payload.data
         })
+      )
+
+    case accountActions.GET_ACCOUNT_HISTORY_FULFILLED:
+      return state.setIn(
+        [payload.opts.address, 'blocks'],
+        new List(payload.data.history.map((d) => d.hash))
       )
 
     default:

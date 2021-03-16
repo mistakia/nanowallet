@@ -23,6 +23,17 @@ export const api = {
     return { url, ...POST(data) }
   },
 
+  getAccountHistory({ address }) {
+    const url = getNode()
+    const data = {
+      action: 'account_history',
+      account: address,
+      count: -1,
+      raw: true
+    }
+    return { url, ...POST(data) }
+  },
+
   getRepresentative({ address }) {
     const url = `https://mynano.ninja/api/accounts/${address}`
     return { url }

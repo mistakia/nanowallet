@@ -96,12 +96,7 @@ export function* importFromSeed({ payload }) {
   const w = generateWalletFromSeed(seed)
   yield put(walletActions.set(w))
   yield put(walletActions.confirm())
-
-  const accountIndex = yield call(localStorageAdapter.getItem, 'accountIndex')
-  if (accountIndex) {
-    const accounts = generateAccountsFromSeed(w.seed, 1, accountIndex)
-    yield put(walletActions.setAccounts(accounts))
-  }
+  localStorageAdapter.setItem('seed', w.seed)
   yield put(accountActions.load(w.accounts[0]))
 }
 

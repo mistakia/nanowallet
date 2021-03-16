@@ -13,7 +13,7 @@ function formatAddress(address) {
 
 export default function ({ transaction }) {
   const timestamp = moment(transaction.local_timestamp, 'X')
-  const isSend = transaction.type === 'send'
+  const isSend = transaction.type === 'send' || transaction.subtype === 'send'
   const amountFormatted = formatBalance(transaction.amount)
   const amountStyle = isSend ? styles.sendAmount : styles.receiveAmount
 
@@ -39,7 +39,7 @@ export default function ({ transaction }) {
         <View>
           <Text style={styles.label}>{isSend ? 'To' : 'From'}</Text>
           <Text style={styles.address}>
-            {formatAddress(transaction.account)}
+            {transaction.account && formatAddress(transaction.account)}
           </Text>
         </View>
       </View>
