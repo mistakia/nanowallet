@@ -7,10 +7,10 @@ import {
   View
 } from 'react-native'
 
-import Transaction from '@components/transaction'
+import Block from '@components/block'
 
 export default function ({ blocks }) {
-  const renderItem = ({ item }) => <Transaction transaction={item} />
+  const renderItem = ({ item }) => <Block block={item} />
 
   return (
     <>
