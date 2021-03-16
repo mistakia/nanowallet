@@ -37,7 +37,7 @@ export function walletReducer(state = initialState(), { payload, type }) {
     case walletActions.EXIT_WALLET:
       return initialState()
 
-    case walletActions.SET_ACCOUNTS:
+    case walletActions.SET_WALLET_ACCOUNTS:
       return state.merge({
         accounts: mergeAccounts(state.accounts, payload)
       })

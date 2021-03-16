@@ -9,8 +9,8 @@ export const walletActions = {
 
   COPY_SEED: 'COPY_SEED',
 
-  ADD_ACCOUNT: 'ADD_ACCOUNT',
-  SET_ACCOUNTS: 'SET_ACCOUNTS',
+  ADD_ACCOUNT: 'ADD_WALLET_ACCOUNT',
+  SET_WALLET_ACCOUNTS: 'SET_WALLET_ACCOUNTS',
 
   load: () => ({
     type: walletActions.LOAD_WALLET
@@ -38,11 +38,11 @@ export const walletActions = {
   }),
 
   addAccount: () => ({
-    type: walletActions.ADD_ACCOUNT
+    type: walletActions.ADD_WALLET_ACCOUNT
   }),
 
   setAccounts: (accounts) => ({
-    type: walletActions.SET_ACCOUNTS,
+    type: walletActions.SET_WALLET_ACCOUNTS,
     payload: accounts
   }),
 

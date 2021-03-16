@@ -17,9 +17,9 @@ export const Account = new Record({
 
 export function createAccount(data = {}) {
   return new Account({
-    address: data.address,
     isLoaded: data.isLoaded,
     isPending: data.isPending,
+    address: data.address,
     balance: data.balance,
     blockCount: data.block_count,
     representative: data.representative,
@@ -27,6 +27,7 @@ export function createAccount(data = {}) {
     confirmationHeight: data.confirmation_height,
     frontier: data.frontier,
     openBlock: data.open_block,
-    representativeBlock: data.representative_block
+    representativeBlock: data.representative_block,
+    blocks: new List(data.blocks)
   })
 }

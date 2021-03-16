@@ -1,6 +1,8 @@
 export const accountActions = {
   LOAD_ACCOUNT: 'LOAD_ACCOUNT',
 
+  SET_ACCOUNTS: 'SET_ACCOUNTS',
+
   GET_ACCOUNT_INFO_PENDING: 'GET_ACCOUNT_INFO_PENDING',
   GET_ACCOUNT_INFO_FAILED: 'GET_ACCOUNT_INFO_FAILED',
   GET_ACCOUNT_INFO_FULFILLED: 'GET_ACCOUNT_INFO_FULFILLED',
@@ -8,6 +10,13 @@ export const accountActions = {
   GET_ACCOUNT_HISTORY_PENDING: 'GET_ACCOUNT_HISTORY_PENDING',
   GET_ACCOUNT_HISTORY_FAILED: 'GET_ACCOUNT_HISTORY_FAILED',
   GET_ACCOUNT_HISTORY_FULFILLED: 'GET_ACCOUNT_HISTORY_FULFILLED',
+
+  setAccounts: (accounts) => ({
+    type: accountActions.SET_ACCOUNTS,
+    payload: {
+      accounts
+    }
+  }),
 
   load: (account) => ({
     type: accountActions.LOAD_ACCOUNT,
