@@ -76,7 +76,7 @@ export default class App extends React.Component {
   }
 
   renderIcon = (tab) => ({ isActive }) => {
-    const t = this.tabs.find((t) => t.key === this.state.activeTab)
+    const t = this.tabs.find((a) => a.key === this.state.activeTab)
     const color = isActive ? t.activeText : t.text
     return <IconButton size={30} color={color} icon={tab.icon} />
   }

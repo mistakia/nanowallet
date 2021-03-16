@@ -11,9 +11,74 @@ function formatAddress(address) {
   return `${first} ... ${last}`
 }
 
+function blockType(block) {
+  switch (block.blockType) {
+    case constants.EPOCH_BLOCK:
+      return <Text style={{ ...styles.type, ...styles.epoch }}>E</Text>
+
+    case constants.RECEIVE_BLOCK:
+      return <Text style={{ ...styles.type, ...styles.receive }}>R</Text>
+
+    case constants.CHANGE_BLOCK:
+      return <Text style={{ ...styles.type, ...styles.change }}>C</Text>
+
+    case constants.SEND_BLOCK:
+      return <Text style={{ ...styles.type, ...styles.send }}>S</Text>
+
+    case constants.OPEN_BLOCK:
+      return <Text style={{ ...styles.type, ...styles.receive }}>O</Text>
+  }
+}
+
+function blockContentLabel(block) {
+  switch (block.blockType) {
+    case constants.EPOCH_BLOCK:
+      return <Text style={styles.label}>Epoch</Text>
+
+    case constants.OPEN_BLOCK:
+    case constants.RECEIVE_BLOCK:
+      return <Text style={styles.label}>From</Text>
+
+    case constants.CHANGE_BLOCK:
+      return <Text style={styles.label}>Change Representative</Text>
+
+    case constants.SEND_BLOCK:
+      return <Text style={styles.label}>To</Text>
+  }
+}
+
+function blockContent(block) {
+  switch (block.blockType) {
+    case constants.EPOCH_BLOCK:
+    case constants.OPEN_BLOCK:
+    case constants.SEND_BLOCK:
+    case constants.RECEIVE_BLOCK:
+      return (
+        <Text style={styles.address}>
+          {block.account && formatAddress(block.account)}
+        </Text>
+      )
+
+    case constants.CHANGE_BLOCK:
+      return (
+        <Text style={styles.address}>
+          {block.representative && formatAddress(block.representative)}
+        </Text>
+      )
+  }
+}
+
 export default function ({ block }) {
-  const timestamp = moment(block.local_timestamp, 'X')
-  const isSend = block.type === 'send' || block.subtype === 'send'
+  console.log(block)
+  const timestamp =
+    block.local_timestamp && block.local_timestamp !== '0'
+      ? moment(block.local_timestamp, 'X').format('MMM D YY [at] HH:mm')
+      : ''
+  const isSend = block.blockType === constants.SEND_BLOCK
+  const isReceive =
+    block.blockType === constants.RECEIVE_BLOCK ||
+    block.blockType === constants.OPEN_BLOCK
+  const isTransaction = isSend || isReceive
   const amountFormatted = formatBalance(block.amount)
   const amountStyle = isSend ? styles.sendAmount : styles.receiveAmount
 
@@ -22,25 +87,19 @@ export default function ({ block }) {
       <View style={styles.line} />
       <View style={styles.body}>
         <View style={styles.header}>
-          {isSend ? (
-            <Text style={{ ...styles.type, ...styles.send }}>S</Text>
-          ) : (
-            <Text style={{ ...styles.type, ...styles.receive }}>R</Text>
+          {blockType(block)}
+          <Text style={styles.timestamp}>{timestamp}</Text>
+          {isTransaction && (
+            <Text style={{ ...styles.amount, ...amountStyle }}>
+              <Text>{isSend ? '-' : '+'}</Text>
+              <Text>{amountFormatted}</Text>
+            </Text>
           )}
-          <Text style={styles.timestamp}>
-            {timestamp.format('MMM D YY [at] HH:mm')}
-          </Text>
-          <Text style={{ ...styles.amount, ...amountStyle }}>
-            <Text>{isSend ? '-' : '+'}</Text>
-            <Text>{amountFormatted}</Text>
-          </Text>
         </View>
 
         <View>
-          <Text style={styles.label}>{isSend ? 'To' : 'From'}</Text>
-          <Text style={styles.address}>
-            {block.account && formatAddress(block.account)}
-          </Text>
+          {blockContentLabel(block)}
+          {blockContent(block)}
         </View>
       </View>
     </View>
@@ -102,6 +161,12 @@ const styles = StyleSheet.create({
   },
   receive: {
     borderColor: constants.green
+  },
+  epoch: {
+    borderColor: constants.grey
+  },
+  change: {
+    borderColor: constants.purple
   },
   amount: {
     fontWeight: '800'
