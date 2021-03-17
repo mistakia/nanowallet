@@ -5,10 +5,13 @@ import { Button, TouchableRipple, IconButton } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { BigNumber } from 'bignumber.js'
 import Modal from 'react-native-modal'
+import { Camera } from 'react-native-vision-camera'
 
 import Logo from '@components/logo'
 import constants from '@core/constants'
 import Receive from '@pages/receive'
+import Send from '@pages/send'
+import CameraPage from '@pages/camera'
 
 export class KeyboardButton extends PureComponent {
   ref = null
@@ -59,10 +62,14 @@ export class KeyboardButton extends PureComponent {
 export default class TransactionPage extends React.Component {
   state = {
     amount: [0],
-    receiveVisible: false
+    receiveVisible: false,
+    sendVisible: false,
+    cameraVisible: false
   }
 
   handleViewRef = (ref) => (this.view = ref)
+
+  isEmpty = () => this.state.amount.length === 1 && this.state.amount[0] === 0
 
   setBalance = (amount) => {
     const { account } = this.props
@@ -77,7 +84,7 @@ export default class TransactionPage extends React.Component {
   }
 
   addAmount = (num) => {
-    if (this.state.amount.length === 1 && this.state.amount[0] === 0) {
+    if (this.isEmpty()) {
       const amount = [num]
       return this.setBalance(amount)
     }
@@ -106,12 +113,34 @@ export default class TransactionPage extends React.Component {
     this.setState({ amount: arr })
   }
 
-  toggleReceive = () => {
-    this.setState({ receiveVisible: !this.state.receiveVisible })
+  showReceive = () => {
+    this.setState({ receiveVisible: true })
   }
 
   cancelReceive = () => {
     this.setState({ receiveVisible: false })
+  }
+
+  showSend = () => {
+    if (this.isEmpty()) {
+      return this.view.shake()
+    }
+    this.setState({ sendVisible: true })
+  }
+
+  cancelSend = () => {
+    this.setState({ sendVisible: false })
+  }
+
+  showCamera = async () => {
+    const cameraPermission = await Camera.getCameraPermissionStatus()
+    console.log(cameraPermission)
+    const permission = await Camera.requestCameraPermission()
+    this.setState({ cameraVisible: true })
+  }
+
+  cancelCamera = () => {
+    this.setState({ cameraVisible: false })
   }
 
   render() {
@@ -131,7 +160,7 @@ export default class TransactionPage extends React.Component {
               size={36}
               color='white'
               icon='crop-free'
-              onPress={() => console.log('Pressed')}
+              onPress={this.showCamera}
             />
           </View>
           <Animatable.View
@@ -174,13 +203,13 @@ export default class TransactionPage extends React.Component {
           </View>
           <View style={styles.actions}>
             <TouchableRipple
-              onPress={this.toggleReceive}
+              onPress={this.showReceive}
               rippleColor='rgba(0, 0, 0, .32)'
               style={styles.action}>
               <Text style={styles.actionText}>Receive</Text>
             </TouchableRipple>
             <TouchableRipple
-              onPress={() => console.log('Pressed')}
+              onPress={this.showSend}
               rippleColor='rgba(0, 0, 0, .32)'
               style={styles.action}>
               <Text style={styles.actionText}>Send</Text>
@@ -198,6 +227,28 @@ export default class TransactionPage extends React.Component {
             handleCancel={this.cancelReceive}
             amount={this.state.amount.join('')}
           />
+        </Modal>
+        <Modal
+          isVisible={this.state.sendVisible}
+          backdropColor='black'
+          swipeDirection='down'
+          style={{ margin: 0 }}
+          avoidKeyboard={true}
+          onBackdropPress={this.cancelSend}
+          onSwipeComplete={this.cancelSend}>
+          <Send
+            handleCancel={this.cancelSend}
+            amount={this.state.amount.join('')}
+          />
+        </Modal>
+        <Modal
+          isVisible={this.state.cameraVisible}
+          backdropColor='black'
+          swipeDirection='down'
+          style={{ margin: 0 }}
+          onBackdropPress={this.cancelCamera}
+          onSwipeComplete={this.cancelCamera}>
+          <CameraPage handleCancel={this.cancelCamera} />
         </Modal>
       </>
     )

@@ -240,6 +240,8 @@ PODS:
     - React
   - react-native-randombytes (3.6.0):
     - React-Core
+  - react-native-vision-camera (1.0.1):
+    - React-Core
   - React-RCTActionSheet (0.63.4):
     - React-Core/RCTActionSheetHeaders (= 0.63.4)
   - React-RCTAnimation (0.63.4):
@@ -351,6 +353,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-clipboard-plus (from `../node_modules/react-native-clipboard-plus`)
   - react-native-randombytes (from `../node_modules/react-native-randombytes`)
+  - react-native-vision-camera (from `../node_modules/react-native-vision-camera`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
   - React-RCTBlob (from `../node_modules/react-native/Libraries/Blob`)
@@ -417,6 +420,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-clipboard-plus"
   react-native-randombytes:
     :path: "../node_modules/react-native-randombytes"
+  react-native-vision-camera:
+    :path: "../node_modules/react-native-vision-camera"
   React-RCTActionSheet:
     :path: "../node_modules/react-native/Libraries/ActionSheetIOS"
   React-RCTAnimation:
@@ -477,6 +482,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
   react-native-clipboard-plus: 28d86b7be97febd217abb1af954b22b8c80c38bb
   react-native-randombytes: b6677f7d495c27e9ee0dbd77ebc97b3c59173729
+  react-native-vision-camera: d7c8c65ebc20ab8e8728ee449359de8a4b69bfed
   React-RCTActionSheet: 89a0ca9f4a06c1f93c26067af074ccdce0f40336
   React-RCTAnimation: 1bde3ecc0c104c55df246eda516e0deb03c4e49b
   React-RCTBlob: a97d378b527740cc667e03ebfa183a75231ab0f0
@@ -494,6 +500,6 @@ SPEC CHECKSUMS:
   Yoga: 4bd86afe9883422a7c4028c00e34790f560923d6
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 93d855c9b90e4e30586a933078bae12104052a8b
+PODFILE CHECKSUM: 2697b25c421c00cf6a41082b566d38e6c8828def
 
 COCOAPODS: 1.10.1

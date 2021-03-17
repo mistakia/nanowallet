@@ -33,6 +33,7 @@
     "react-native-snackbar": "^2.3.2",
     "react-native-svg": "^12.1.0",
     "react-native-vector-icons": "^8.0.0",
+    "react-native-vision-camera": "^1.0.1",
     "react-redux": "^7.2.2",
     "react-router": "^5.2.0",
     "react-router-native": "^5.2.0",

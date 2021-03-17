@@ -15,6 +15,11 @@ export default class ReceivePage extends React.Component {
     copied: false
   }
 
+  paste = async () => {
+    const pasteResult = await ClipboardPlus.paste()
+    console.log(pasteResult)
+  }
+
   copy = async () => {
     const { account } = this.props
     await ClipboardPlus.copyText(account.address)
