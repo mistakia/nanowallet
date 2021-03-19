@@ -1,49 +1,69 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import { Button, TextInput, IconButton } from 'react-native-paper'
+import Modal from 'react-native-modal'
+
+import CameraPage from '@pages/camera'
 
 export default function () {
   return (
-    <View style={styles.container}>
-      <View style={styles.inputContainer}>
-        <View style={styles.iconContainer}>
-          {!this.state.text.length && <IconButton size={30} icon='crop-free' />}
-          {!this.state.text.length && (
-            <IconButton size={30} icon='content-paste' />
-          )}
-          {Boolean(this.state.text.length) && (
-            <IconButton
-              size={30}
-              onPress={this.clear}
-              icon='backspace-outline'
-            />
-          )}
+    <>
+      <View style={styles.container}>
+        <View style={styles.inputContainer}>
+          <View style={styles.iconContainer}>
+            {!this.state.text.length && (
+              <IconButton
+                size={30}
+                icon='crop-free'
+                onPress={this.showCamera}
+              />
+            )}
+            {!this.state.text.length && (
+              <IconButton size={30} icon='content-paste' />
+            )}
+            {Boolean(this.state.text.length) && (
+              <IconButton
+                size={30}
+                onPress={this.clear}
+                icon='backspace-outline'
+              />
+            )}
+          </View>
+          <TextInput
+            value={this.state.text}
+            placeholder='nano_'
+            multiline
+            ref={this.handleRef}
+            onChangeText={this.setText}
+            theme={{ colors: { accent: 'transparent' } }}
+            style={styles.input}
+            error={this.state.invalid}
+          />
         </View>
-        <TextInput
-          value={this.state.text}
-          placeholder='nano_'
-          multiline
-          ref={this.handleRef}
-          onChangeText={this.setText}
-          theme={{ colors: { accent: 'transparent' } }}
-          style={styles.input}
-          error={this.state.invalid}
-        />
+        <Button
+          style={styles.button}
+          onPress={this.props.handleCancel}
+          mode='text'>
+          Cancel
+        </Button>
+        <Button
+          style={styles.button}
+          mode='contained'
+          onPress={this.submit}
+          disabled={this.state.invalid}>
+          Send
+        </Button>
       </View>
-      <Button
-        style={styles.button}
-        onPress={this.props.handleCancel}
-        mode='text'>
-        Cancel
-      </Button>
-      <Button
-        style={styles.button}
-        mode='contained'
-        onPress={this.submit}
-        disabled={this.state.invalid}>
-        Send
-      </Button>
-    </View>
+      <Modal
+        isVisible={this.state.cameraVisible}
+        backdropColor='black'
+        swipeDirection='down'
+        style={{ margin: 0 }}
+        onBackdropPress={this.cancelCamera}
+        onSwipeComplete={this.cancelCamera}>
+        <CameraPage handleCancel={this.cancelCamera} />
+      </Modal>
+    </>
   )
 }
 

@@ -2,15 +2,36 @@ import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import { IconButton } from 'react-native-paper'
 import { Camera } from 'react-native-vision-camera'
+import Snackbar from 'react-native-snackbar'
+
+import { parseQr } from '@core/utils'
 
 export default class CameraPage extends React.Component {
+  lastCode = null
   state = {
     device: null
   }
 
   handleCodeScanned = (e) => {
-    // console.log(e)
     this.props.handleCancel()
+
+    const item = e[0]
+    if (item.code === this.lastCode) {
+      return
+    }
+    this.lastCode = item.code
+
+    const code = parseQr(item.code)
+    console.log(code)
+    if (code.type && code.type === 'SEND') {
+      console.log(code)
+      // TODO - broadcast action
+    } else {
+      Snackbar.show({
+        text: 'Invalid QR Code',
+        duration: Snackbar.LENGTH_SHORT
+      })
+    }
   }
 
   componentDidMount = async () => {
