@@ -1,11 +1,12 @@
 import React, { PureComponent } from 'react'
 import * as Animatable from 'react-native-animatable'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Linking } from 'react-native'
 import { Button, TouchableRipple, IconButton } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { BigNumber } from 'bignumber.js'
 import Modal from 'react-native-modal'
 import { Camera } from 'react-native-vision-camera'
+import Snackbar from 'react-native-snackbar'
 
 import Logo from '@components/logo'
 import constants from '@core/constants'
@@ -133,9 +134,22 @@ export default class TransactionPage extends React.Component {
   }
 
   showCamera = async () => {
-    const cameraPermission = await Camera.getCameraPermissionStatus()
-    console.log(cameraPermission)
     const permission = await Camera.requestCameraPermission()
+    if (permission === 'denied') {
+      Snackbar.show({
+        text: 'Enable camera permissions in settings',
+        duration: Snackbar.LENGTH_INDEFINITE,
+        action: {
+          text: 'Settings',
+          textColor: 'green',
+          onPress: () => {
+            Linking.openSettings()
+            Snackbar.dismiss()
+          }
+        }
+      })
+      return
+    }
     this.setState({ cameraVisible: true })
   }
 

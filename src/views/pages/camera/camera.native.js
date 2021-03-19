@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import { IconButton } from 'react-native-paper'
-import { Camera, useCameraDevices } from 'react-native-vision-camera'
+import { Camera } from 'react-native-vision-camera'
 
 export default class CameraPage extends React.Component {
   state = {
