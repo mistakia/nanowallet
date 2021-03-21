@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import moment from 'moment'
+import { TouchableRipple } from 'react-native-paper'
 
 import constants from '@core/constants'
 import { formatBalance, formatAddress } from '@core/utils'
@@ -62,7 +63,7 @@ function blockContent(block) {
   }
 }
 
-export default function ({ block }) {
+export default function ({ block, handlePress }) {
   const timestamp =
     block.local_timestamp && block.local_timestamp !== '0'
       ? moment(block.local_timestamp, 'X').format('MMM D YY [at] HH:mm')
@@ -78,23 +79,29 @@ export default function ({ block }) {
   return (
     <View style={styles.container}>
       <View style={styles.line} />
-      <View style={styles.body}>
-        <View style={styles.header}>
-          {blockType(block)}
-          <Text style={styles.timestamp}>{timestamp}</Text>
-          {isTransaction && (
-            <Text style={{ ...styles.amount, ...amountStyle }}>
-              <Text>{isSend ? '-' : '+'}</Text>
-              <Text>{amountFormatted}</Text>
-            </Text>
-          )}
-        </View>
+      <TouchableRipple
+        style={styles.body}
+        onPress={handlePress}
+        underlayColor='rgb(230,230,230)'
+        rippleColor='rgba(0, 0, 0, .5)'>
+        <>
+          <View style={styles.header}>
+            {blockType(block)}
+            <Text style={styles.timestamp}>{timestamp}</Text>
+            {isTransaction && (
+              <Text style={{ ...styles.amount, ...amountStyle }}>
+                <Text>{isSend ? '-' : '+'}</Text>
+                <Text>{amountFormatted}</Text>
+              </Text>
+            )}
+          </View>
 
-        <View>
-          {blockContentLabel(block)}
-          {blockContent(block)}
-        </View>
-      </View>
+          <View>
+            {blockContentLabel(block)}
+            {blockContent(block)}
+          </View>
+        </>
+      </TouchableRipple>
     </View>
   )
 }
@@ -140,7 +147,6 @@ const styles = StyleSheet.create({
     height: 28,
     textAlign: 'center',
     textAlignVertical: 'center',
-    backgroundColor: 'white',
     zIndex: 10
   },
   timestamp: {
