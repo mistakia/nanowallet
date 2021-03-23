@@ -8,6 +8,14 @@ export function getAccounts(state) {
   return state.get('accounts')
 }
 
+export function getTotalBalance(state) {
+  const accounts = state.get('accounts')
+  return accounts
+    .valueSeq()
+    .toList()
+    .reduce((sum, a) => sum + a.balance, 0)
+}
+
 export const getSelectedAccount = createSelector(
   getAccounts,
   getWallet,

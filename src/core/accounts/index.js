@@ -8,5 +8,6 @@ export { accountsReducer } from './reducer'
 export {
   getAccounts,
   getSelectedAccount,
+  getTotalBalance,
   getBlocksForSelectedAccount
 } from './selectors'
