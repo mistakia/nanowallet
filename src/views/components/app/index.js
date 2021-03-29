@@ -3,13 +3,15 @@ import { createSelector } from 'reselect'
 
 import { walletActions, getWallet } from '@core/wallet'
 import { getSelectedAccount } from '@core/accounts'
+import { getStats } from '@core/stats'
 
 import App from './app'
 
 const mapStateToProps = createSelector(
   getWallet,
   getSelectedAccount,
-  (wallet, account) => ({ wallet, account })
+  getStats,
+  (wallet, account, stats) => ({ wallet, account, stats })
 )
 
 const mapDispatchToProps = (dispatch) => ({

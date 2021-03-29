@@ -6,6 +6,7 @@ import BottomNavigation, {
 } from 'react-native-material-bottom-navigation'
 import { push } from 'connected-react-router'
 import Modal from 'react-native-modal'
+import { BigNumber } from 'bignumber.js'
 
 import Routes from '@views/routes'
 // eslint-disable-next-line no-unused-vars
@@ -97,6 +98,10 @@ export default class App extends React.Component {
 
   render() {
     const walletReady = Boolean(this.props.wallet.confirmed)
+    const balanceNano = new BigNumber(this.props.account.balance).shiftedBy(-30)
+    const balanceFiat = balanceNano
+      .multipliedBy(this.props.stats.currentPrice)
+      .toFixed(2)
     return (
       <>
         {walletReady && (
@@ -111,7 +116,7 @@ export default class App extends React.Component {
                 </Text>
               </View>
               <Text style={{ color: this.state.text, ...styles.balanceUsd }}>
-                $2,137.10
+                ${balanceFiat}
               </Text>
             </View>
             <IconButton
