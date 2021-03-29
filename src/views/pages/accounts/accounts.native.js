@@ -8,13 +8,7 @@ import { formatBalance } from '@core/utils'
 
 export default class AccountsPage extends React.Component {
   render() {
-    const {
-      handleClose,
-      wallet,
-      addAccount,
-      account,
-      totalBalance
-    } = this.props
+    const { handleClose, wallet, addAccount, totalBalance } = this.props
     return (
       <>
         <View style={styles.header}>

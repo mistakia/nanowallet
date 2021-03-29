@@ -13,6 +13,7 @@ import constants from '@core/constants'
 import Receive from '@pages/receive'
 import Send from '@pages/send'
 import CameraPage from '@pages/camera'
+import ConfirmSend from '@pages/confirm-send'
 
 export class KeyboardButton extends PureComponent {
   ref = null
@@ -65,7 +66,8 @@ export default class TransactionPage extends React.Component {
     amount: [0],
     receiveVisible: false,
     sendVisible: false,
-    cameraVisible: false
+    cameraVisible: false,
+    confirmSendVisible: false
   }
 
   handleViewRef = (ref) => (this.view = ref)
@@ -133,6 +135,12 @@ export default class TransactionPage extends React.Component {
     this.setState({ sendVisible: false })
   }
 
+  cancelConfirmSend = () => {
+    this.setState({
+      confirmSendVisible: false
+    })
+  }
+
   showCamera = async () => {
     const permission = await Camera.requestCameraPermission()
     if (permission === 'denied') {
@@ -155,6 +163,26 @@ export default class TransactionPage extends React.Component {
 
   cancelCamera = () => {
     this.setState({ cameraVisible: false })
+  }
+
+  shouldShowConfirmSend = () => {
+    const { sendAddress, sendAmount } = this.props.wallet
+    if (sendAddress && sendAmount) {
+      this.setState({ confirmSendVisible: true })
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.wallet.sendAddress && nextProps.wallet.sendAmount) {
+      // in case of some edge cases
+      setTimeout(
+        () =>
+          this.setState({
+            confirmSendVisible: true
+          }),
+        800
+      )
+    }
   }
 
   render() {
@@ -231,6 +259,19 @@ export default class TransactionPage extends React.Component {
           </View>
         </View>
         <Modal
+          isVisible={this.state.confirmSendVisible}
+          backdropColor='black'
+          swipeDirection='down'
+          style={{ margin: 0 }}
+          onBackdropPress={this.cancelConfirmSend}
+          onSwipeComplete={this.cancelConfirmSend}>
+          <ConfirmSend
+            handleCancel={this.cancelConfirmSend}
+            address={this.props.wallet.sendAddress}
+            amount={this.props.wallet.sendAmount || this.state.amount.join('')}
+          />
+        </Modal>
+        <Modal
           isVisible={this.state.receiveVisible}
           backdropColor='black'
           swipeDirection='down'
@@ -261,6 +302,7 @@ export default class TransactionPage extends React.Component {
           swipeDirection='down'
           style={{ margin: 0 }}
           onBackdropPress={this.cancelCamera}
+          onModalHide={this.shouldShowConfirmSend}
           onSwipeComplete={this.cancelCamera}>
           <CameraPage handleCancel={this.cancelCamera} />
         </Modal>

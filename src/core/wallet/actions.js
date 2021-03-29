@@ -12,6 +12,8 @@ export const walletActions = {
   ADD_ACCOUNT: 'ADD_WALLET_ACCOUNT',
   SET_WALLET_ACCOUNTS: 'SET_WALLET_ACCOUNTS',
 
+  SET_QR: 'SET_QR',
+
   load: () => ({
     type: walletActions.LOAD_WALLET
   }),
@@ -49,5 +51,10 @@ export const walletActions = {
   importFromSeed: (seed) => ({
     type: walletActions.IMPORT_FROM_SEED,
     payload: { seed }
+  }),
+
+  setQR: (code) => ({
+    type: walletActions.SET_QR,
+    payload: { code }
   })
 }

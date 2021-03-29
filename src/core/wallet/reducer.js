@@ -7,7 +7,10 @@ const initialState = new Record({
   mnemonic: null,
   accounts: new List(),
   selected: null,
-  confirmed: false
+  confirmed: false,
+  sendAddress: null,
+  sendAmount: null,
+  qr: null
 })
 
 export const mergeAccounts = (list, collection) => {
@@ -40,6 +43,18 @@ export function walletReducer(state = initialState(), { payload, type }) {
     case walletActions.SET_WALLET_ACCOUNTS:
       return state.merge({
         accounts: mergeAccounts(state.accounts, payload)
+      })
+
+    case walletActions.SET_QR:
+      return state.withMutations((s) => {
+        s.merge({ qr: payload.code })
+
+        if (payload.code.type === 'SEND') {
+          s.merge({
+            sendAmount: payload.code.amount,
+            sendAddress: payload.code.data
+          })
+        }
       })
 
     default:

@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
-import { Button, Paragraph, Text } from 'react-native-paper'
+import { Button, Text } from 'react-native-paper'
 import { BigNumber } from 'bignumber.js'
 import moment from 'moment'
 

@@ -22,10 +22,8 @@ export default class CameraPage extends React.Component {
     this.lastCode = item.code
 
     const code = parseQr(item.code)
-    console.log(code)
     if (code.type && code.type === 'SEND') {
-      console.log(code)
-      // TODO - broadcast action
+      this.props.setQR(code)
     } else {
       Snackbar.show({
         text: 'Invalid QR Code',
