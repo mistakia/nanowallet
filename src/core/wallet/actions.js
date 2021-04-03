@@ -13,6 +13,7 @@ export const walletActions = {
   SET_WALLET_ACCOUNTS: 'SET_WALLET_ACCOUNTS',
 
   SET_QR: 'SET_QR',
+  SET_SEND: 'SET_SEND',
 
   load: () => ({
     type: walletActions.LOAD_WALLET
@@ -56,5 +57,13 @@ export const walletActions = {
   setQR: (code) => ({
     type: walletActions.SET_QR,
     payload: { code }
+  }),
+
+  setSend: ({ sendAmount, sendAddress }) => ({
+    type: walletActions.SET_SEND,
+    payload: {
+      sendAmount,
+      sendAddress
+    }
   })
 }

@@ -1,9 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { createSelector } from 'reselect'
-import { Linking, Keyboard } from 'react-native'
+import { AppState, Linking, Keyboard } from 'react-native'
 import { Camera } from 'react-native-vision-camera'
 import Snackbar from 'react-native-snackbar'
+import ClipboardPlus from 'react-native-clipboard-plus'
+import { tools } from 'nanocurrency-web'
 
 import { getSelectedAccount } from '@core/accounts'
 import { walletActions, getWallet } from '@core/wallet'
@@ -12,6 +14,7 @@ import render from './send'
 
 class SendPage extends React.Component {
   state = {
+    appState: '',
     text: '',
     address: null,
     invalid: false,
@@ -29,15 +32,24 @@ class SendPage extends React.Component {
     this.setState({ text })
   }
 
+  checkClipboard = async () => {
+    const { string } = await ClipboardPlus.paste()
+    const isValid = tools.validateAddress(string)
+    if (isValid) {
+      this.setState({ text: string })
+    }
+  }
+
   submit = () => {
     if (this.state.invalid) {
       return
     }
 
-    const block = {
-      amount: this.props.amount,
-      to: this.state.text
-    }
+    this.props.setSend({
+      sendAmount: this.props.amount,
+      sendAddress: this.state.text
+    })
+    this.props.handleCancel()
   }
 
   showCamera = async () => {
@@ -65,8 +77,22 @@ class SendPage extends React.Component {
     this.setState({ cameraVisible: false })
   }
 
-  componentDidMount() {
+  handleAppStateChange = (nextAppState) => {
+    //the app from background to front
+    if (
+      this.state.appState.match(/inactive|background/) &&
+      nextAppState === 'active'
+    ) {
+      this.checkClipboard()
+    }
+    this.setState({ appState: nextAppState })
+  }
+
+  async componentDidMount() {
     this.ref.focus()
+
+    this.checkClipboard()
+    AppState.addEventListener('change', this.handleAppStateChange)
   }
 
   componentWillReceiveProps(nextProps) {

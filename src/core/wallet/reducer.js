@@ -45,6 +45,13 @@ export function walletReducer(state = initialState(), { payload, type }) {
         accounts: mergeAccounts(state.accounts, payload)
       })
 
+    case walletActions.SET_SEND:
+      const { sendAmount, sendAddress } = payload
+      return state.merge({
+        sendAmount,
+        sendAddress
+      })
+
     case walletActions.SET_QR:
       return state.withMutations((s) => {
         s.merge({ qr: payload.code })

@@ -18,9 +18,6 @@ export default function () {
                 onPress={this.showCamera}
               />
             )}
-            {!this.state.text.length && (
-              <IconButton size={30} icon='content-paste' />
-            )}
             {Boolean(this.state.text.length) && (
               <IconButton
                 size={30}
